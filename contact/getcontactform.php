@@ -3,7 +3,7 @@
   header("Access-Control-Allow-Origin: *");
 
   if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    include_once "../utils/news/getNews.php";
+    include_once "../utils/contact/getcontactform.php";
 
     $pag = 0;
 
@@ -11,7 +11,8 @@
       $pag = $_GET["pag"] - 1;
     }
 
-    echo json_encode(getNews($pag));
+
+    echo json_encode(getContact($pag));
   } else {
     echo json_encode([
       "message" => "Metodo equivocado para la peticion",

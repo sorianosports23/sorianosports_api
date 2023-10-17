@@ -1,10 +1,10 @@
 <?php
  include_once "../database/connection.php";
 
- function getNews($id){
+ function getContact($id){
   global $db;
 
-  $query = "SELECT name, description, note, author, date FROM news WHERE id = $id";
+  $query = "SELECT * FROM contact WHERE id = $id";
 
   $resultData = [
     "status" => false,
@@ -21,7 +21,6 @@
   }
   $resultFetch = $result->fetch_assoc();
   $resultData["data"] = $resultFetch;
-  $resultData["data"]["image"] = "/news/getNewsImg.php?id=".$id;
   return $resultData;
 
  }

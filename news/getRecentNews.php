@@ -1,17 +1,10 @@
 <?php
-  header("Content-Type: application/json");
   header("Access-Control-Allow-Origin: *");
+  header("Content-Type: application/json");
 
   if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    include_once "../utils/news/getNews.php";
-
-    $pag = 0;
-
-    if (isset($_GET["pag"])) {
-      $pag = $_GET["pag"] - 1;
-    }
-
-    echo json_encode(getNews($pag));
+    include_once "../utils/news/getRecentsNews.php";
+    echo json_encode(getNews());
   } else {
     echo json_encode([
       "message" => "Metodo equivocado para la peticion",

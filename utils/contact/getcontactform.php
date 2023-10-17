@@ -1,24 +1,24 @@
 <?php
   include_once "../database/connection.php";
 
-  function getNews(int $pag) {
+  function getContact(int $pag) {
     global $db;
 
-    $sql = "SELECT id, name, description, author, date FROM news";
+    $sql = "SELECT * FROM contact";
     $result = $db->query($sql);
     
     $limit = 10;
 
-    $newsCount = $result->num_rows;
+    $contactsCount = $result->num_rows;
 
-    $totalPages = round($newsCount / 10) + 1;
+    $totalPages = round($contactsCount / 10) + 1;
     
     $index = $pag*10;
     
     $maxIndex = $index + 10;
     
-    if ($maxIndex > $newsCount) {
-      $maxIndex = $newsCount;
+    if ($maxIndex > $contactsCount) {
+      $maxIndex = $contactsCount;
     }
  
     $response = [
@@ -30,22 +30,21 @@
       ]
     ];
 
-    if ($index > $newsCount) {
+    if ($index > $contactsCount) {
       echo json_encode($response);
       die();
     }
 
-    $events = [];
+    $contact = [];
 
     for ($i = $index; $i < $maxIndex; $i++) {
       $resUser = $result->data_seek($i);
       $row = $result->fetch_assoc();
-      $row["image"] = "/news/getNewsImg.php?id=".$row["id"];
      
-      array_push($events, $row);
+      array_push($contact, $row);
     }
     
-    $response["data"] = $events;
+    $response["data"] = $contact;
     $db->close();
     return $response;
   }
