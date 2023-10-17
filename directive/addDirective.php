@@ -8,7 +8,7 @@
     // include_once "../utils/userauth.php";
     /* include_once "../utils/auth/newsauth.php"; */
 
-    if (!isset($_FILES["image"])) {
+    if (empty($_FILES["image"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "image";
       $response["status"] = false;
@@ -16,7 +16,7 @@
       die();
     }
 
-    if (!isset($_POST["name"])) {
+    if (empty($_POST["name"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "name";
       $response["status"] = false;
@@ -24,7 +24,7 @@
       die();
     }
 
-    if (!isset($_POST["rank"])) {
+    if (empty($_POST["rank"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "rank";
       $response["status"] = false;
