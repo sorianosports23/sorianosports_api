@@ -73,7 +73,7 @@ CREATE TABLE place(
   city VARCHAR(128),
   place VARCHAR(60),
   teacher VARCHAR(128),
-  date DATE,
+  date VARCHAR(50),
   time VARCHAR(60)
 );
 
