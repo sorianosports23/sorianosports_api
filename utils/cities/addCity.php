@@ -12,7 +12,7 @@
     ];
 
     $stmt = $db->prepare("INSERT INTO cityPlace(nameCity, nameSport) VALUES(?,?)");
-    $stmt->bind_param('ssss', $nameCity, $nameSport);
+    $stmt->bind_param('ss', $nameCity, $nameSport);
 
     //consulta preparada esta consulta es util para prevenir inyeccion de SQL y mejora la
     //seguridad de nuestro código

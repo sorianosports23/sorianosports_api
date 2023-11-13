@@ -14,7 +14,7 @@
 
     if($stmt->execute()){
       $response["message"] = "Permiso eliminado Correctamente";
-      $response["status"] = false;
+      $response["status"] = true;
       $db->close();
       return $response;
     }

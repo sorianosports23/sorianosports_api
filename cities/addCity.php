@@ -8,6 +8,8 @@
     // include_once "../utils/userauth.php";
     /* include_once "../utils/auth/newsauth.php"; */
 
+    $DATA = json_decode(file_get_contents("php://input", true), true);
+
     if (empty($DATA["nameCity"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "nameCity";

@@ -1,17 +1,20 @@
 <?php
   include_once "../database/connection.php";
 
-  function getPlace() {
+  function getPlace($city) {
     global $db;
 
-    $sql = "SELECT * FROM place";
-    $result = $db->query($sql);
+    $sql = "SELECT * FROM place WHERE city = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("s", $city);
+    $result = $stmt->execute();
+    $res = $stmt->get_result();
 
     $response = ["status"=>false];
 
     $place = [];
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $res->fetch_assoc()) {
       array_push($place, $row);
     }
     

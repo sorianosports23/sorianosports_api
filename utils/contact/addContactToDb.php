@@ -15,8 +15,6 @@
     $stmt = $db->prepare("INSERT INTO contact(name, email, subject, messageContact, status) VALUES(?,?,?,?,?)");
     $stmt->bind_param('ssssi', $name, $email, $subject, $messageContact, $status);
 
-    $res = $stmt->execute();
-
 
     if ($stmt->execute()) {
       $response["message"] = "Enviado Correctamente";
