@@ -11,8 +11,7 @@
       "status" => false
     ];
 
-
-    $stmt = $db->prepare("INSERT INTO place (sport, age, city, place, teacher, date, time) VALUES (?,?,?,?,?,?)");
+    $stmt = $db->prepare("INSERT INTO place (sport, age, city, place, teacher, date, time) VALUES (?,?,?,?,?,?,?)");
     $stmt->bind_param("sisssss", $sport, $age, $city, $place, $teacher, $date, $time);
 
     if ($stmt->execute()) {

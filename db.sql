@@ -70,6 +70,7 @@ CREATE TABLE sports_date(
 CREATE TABLE place(
   id INT(3) AUTO_INCREMENT PRIMARY KEY,
   sport VARCHAR(60),
+  age INT(2),
   city VARCHAR(128),
   place VARCHAR(60),
   teacher VARCHAR(128),
