@@ -11,20 +11,25 @@
       "status" => false
     ];
 
+    $status = 1;
+    $stmt = $db->prepare("INSERT INTO contact(name, email, subject, messageContact, status) VALUES(?,?,?,?,?)");
+    $stmt->bind_param('ssssi', $name, $email, $subject, $messageContact, $status);
 
-    $query = "INSERT INTO contact (name, correo, subject, mensaje) VALUES ('$name', '$email', '$subject', '$messageContact')";
+    $res = $stmt->execute();
 
-    if ($db->query($query)) {
-      $response["message"] = "Mensaje mandado correctamente";
+
+    if ($stmt->execute()) {
+      $response["message"] = "Enviado Correctamente";
       $response["status"] = true;
       $db->close();
       return $response;
     } else {
       // $errMessage = getMessageError($db->errno);
-      $response["message"] = $db->error;
+      $response["message"] = $stmt->error;
       $db->close();
       return $response;
     }
-  }
+    }
+  
 
 ?>

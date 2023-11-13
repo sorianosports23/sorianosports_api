@@ -1,25 +1,57 @@
 <?php
-  include_once "../database/connection.php";
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 
-  function modifyDirective($attr, $newDirective, $directiveID) {
-    global $db;    
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  // include_once "../utils/auth/eventsauth.php";
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  include_once "../utils/directive/modifyDirective.php";
 
-    $query = "UPDATE directive SET $attr = '$newDirective' WHERE id = $directiveID";
+  $DATA = json_decode(file_get_contents("php://input", true), true);
 
-    if ($db->query($query)) {
-      $response["message"] = "Evento editado correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      $response["message"] = "Hubo un error al editar";
-      $db->close();
-      return $response;
-    }
+  if (!empty($_FILES["newDirective"])) {
+    $DATA = $_POST;
+    $DATA["newDirective"] = $_FILES["newDirective"];
+  } 
+
+  if (empty($DATA["DirectiveID"])) {
+    $response["message"] = "No se envio uno de los valores";
+    $response["input"] = "DirectiveID";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
   }
+
+  if (empty($DATA["newDirective"])) {
+    $response["message"] = "No se envio uno de los valores";
+    $response["input"] = "newDirective";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+  }
+
+  if (empty($DATA["attr"])) {
+    $response["message"] = "No se envio uno de los valores";
+    $response["input"] = "attr";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+  }
+
+  $directiveID = $DATA["DirectiveID"];
+  $newDirective;
+
+  if (!empty($_FILES["DirectiveID"])) {
+    $newDirective = $_FILES["DirectiveID"];
+  } else {
+    $newDirective = $DATA["newDirective"];
+  }
+
+  $attr = $DATA["attr"];
+  $newDirective = $DATA["newDirective"];
+  $directiveID = $DATA["DirectiveID"];
+
+  echo json_encode(modifyDirective($attr, $newDirective, $directiveID));
+}
 ?>

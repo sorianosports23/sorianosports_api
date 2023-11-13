@@ -9,14 +9,29 @@
 
     $DATA = json_decode(file_get_contents("php://input", true), true);
       
-    if (empty($DATA["username"]) || empty($DATA["valueToEdit"]) || empty($DATA["newValue"])) {
-      $response["message"] = "No ingresate uno de los valores";
+    if(empty($DATA["username"])){
+      $response["message"] = "No ingresaste uno de los valores";
+      $response["input"] = "username";
       $response["status"] = false;
       echo json_encode($response);
-      $DB->close();
-      return;
+      die();
+    }
+
+    if(empty($DATA["valueToEdit"])){
+      $response["message"] = "No ingresaste uno de los valores";
+      $response["input"] = "valueToEdit";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
     }
     
+    if(empty($DATA["newValue"])){
+      $response["message"] = "No ingresaste uno de los valores";
+      $response["input"] = "newValue";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
     $username = $DATA["username"];
     $valueToEdit = $DATA["valueToEdit"];
     $newValue = $DATA["newValue"];

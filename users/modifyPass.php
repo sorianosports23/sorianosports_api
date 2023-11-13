@@ -11,13 +11,21 @@
 
     $DATA = json_decode(file_get_contents("php://input", true), true);
       
-    if (empty($DATA["password"]) || empty($DATA["newPassword"])) {
-      $response["message"] = "No ingresate uno de los valores";
-      $response["status"] = false;
-      echo json_encode($response);
-      $db->close();
-      return;
-    }
+   if(empty($DATA["password"])){
+    $response["message"] = "No se envio uno de los valores";
+    $response["input"] = "password";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+   }
+
+   if(empty($DATA["newPassword"])){
+    $response["message"] = "No se envio uno de los valores";
+    $response["input"] = "newPassword";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+   }
     
     $password = $DATA["password"];
     $newPassword = $DATA["newPassword"];

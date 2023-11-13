@@ -1,6 +1,6 @@
 <?php
   if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    if (!isset($_GET["id"])) {
+    if (empty($_GET["id"])) {
       $response["message"] = "No se envio el id";
       $response["status"] = false;
       echo json_encode($response);
@@ -13,7 +13,7 @@
 
     $image = getImage($id);
 
-    if (isset($image["status"])) {
+    if (!empty($image["status"])) {
       header("Content-Type: application/json");
       echo json_encode($image);
       die();

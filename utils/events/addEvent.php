@@ -11,16 +11,20 @@
     ];
 
 
-    $query = "INSERT INTO event (name, place, sport, description, date_ev) VALUES ('$name', '$place', '$sport', '$description', $date_ev)";
+    $stmt = $db->prepare("INSERT INTO event(name, place, time, sport, description, date_ev) VALUES(?,?,?,?,?,?)");
+    $stmt->bind_param('ssssss', $name, $place, $time, $sport, $description, $date_ev);
 
-    if ($db->query($query)) {
+    $res = $stmt->execute();
+
+
+    if ($stmt->execute()) {
       $response["message"] = "Evento añadido";
       $response["status"] = true;
       $db->close();
       return $response;
     } else {
-      $errMessage = getMessageError($db->errno);
-      $response["message"] = $errMessage;
+      // $errMessage = getMessageError($db->errno);
+      $response["message"] = $stmt->error;
       $db->close();
       return $response;
     }

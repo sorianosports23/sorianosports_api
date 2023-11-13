@@ -6,7 +6,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
   include_once "../utils/userauth.php";
-  include_once "../utils/deleteuser.php";
+  include_once "../utils/users/deleteuser.php";
   include_once "../utils/verifyUser.php";
 
   $DATA = json_decode(file_get_contents("php://input", true), true);

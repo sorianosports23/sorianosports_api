@@ -2,14 +2,24 @@
   include_once "../utils/userauth.php";
   include_once "../database/connection.php";
 
-  $query = "SELECT * FROM permissions WHERE username = '$username' AND permission = 'users'";
+function askPermission($username){
 
+  global $db;
+  
+  $query = "SELECT * FROM permission WHERE username = '$username'";
   $result = $db->query($query);
 
-  if ($result->num_rows === 0) {
-    $response["authorization"] = false;
-    $response["message"] = "No tienes permiso para editar los usuarios";
-    echo json_encode($response);
-    die();
+  $grant = false;
+
+  while($row = $result->fetch_assoc()){
+   if($row["permission"] == "editor"  || $row["permission"] == "admin"){
+     $grant = true;
+     
+   }
   }
+
+  return $grant;
+
+}
+
 ?>

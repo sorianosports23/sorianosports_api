@@ -5,7 +5,6 @@
    if($_SERVER["REQUEST_METHOD"] === "GET") {
 
     include_once  "../utils/directive/getdirective.php";
-
     echo json_encode(getDirective());
   }
   else{

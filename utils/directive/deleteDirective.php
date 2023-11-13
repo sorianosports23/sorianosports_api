@@ -9,16 +9,19 @@
       "status" => false
     ];
 
-    $query = "DELETE FROM directive WHERE id = $id";
+    $stmt = $db->prepare("DELETE FROM directive WHERE id = ?");
+    $stmt->bind_param('i', $id );
 
-    if($db->query($query)){
-      $response["message"] = "eliminado correctamente!";
+    $res = $stmt->execute();
+
+    if ($stmt->execute()) {
+      $response["message"] = "Eliminado Correctamente";
       $response["status"] = true;
       $db->close();
       return $response;
-    }
-    else{
-      $response["menssage"] = "No se pudo eliminar!";
+    } else {
+      // $errMessage = getMessageError($db->errno);
+      $response["message"] = $stmt->error;
       $db->close();
       return $response;
     }

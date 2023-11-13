@@ -5,13 +5,13 @@
   
   if ($_SERVER["REQUEST_METHOD"] === "GET") {
     include_once "../utils/userauth.php";
-    include_once "../utils/auth/usersauth.php";
+    include_once "../auth/users.php";
     include_once "../utils/getusers.php";
 
     // inicia la variable $pag en 0
     $pag = 0;
 
-    if (isset($_GET["pag"])) {
+    if (!empty($_GET["pag"])) {
       // si mando la variable $pag desde los parametros la remplaza con el valor -1 pq el arreglo empieza en 0 (si quiere ver la pagina 1, en el arreglo es 0)
       $pag = $_GET["pag"] - 1;
     }

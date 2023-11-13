@@ -1,8 +1,14 @@
 <?php
-  
-  header("Content-Type: application/json");
-  header("Access-Control-Allow-Origin: *");
   include_once "../utils/auth/usersauth.php";
 
-  echo json_encode($response);
+  $askPermission = askPermission($username);
+
+  if(!$askPermission){
+    $response["message"] = "No estas autorizado!";
+    $response["status"] = false;
+    $response["authorization"] = false;
+    echo json_encode($response);
+    die();
+  }
+  
 ?>

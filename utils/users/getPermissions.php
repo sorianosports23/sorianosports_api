@@ -4,7 +4,7 @@
   function getPermissionsFromUser($username) {
     global $db;
 
-    $sql = "SELECT permission FROM permissions WHERE username = '$username'";
+    $sql = "SELECT permission FROM permission WHERE username = '$username'";
     $result = $db->query($sql);
 
     $perms = [];

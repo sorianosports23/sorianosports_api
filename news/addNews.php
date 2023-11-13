@@ -8,7 +8,7 @@
     // include_once "../utils/userauth.php";
     /* include_once "../utils/auth/newsauth.php"; */
 
-    if (!isset($_POST["title"])) {
+    if (empty($_POST["title"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "title";
       $response["status"] = false;
@@ -16,7 +16,7 @@
       die();
     }
 
-    if (!isset($_FILES["image"])) {
+    if (empty($_FILES["image"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "img";
       $response["status"] = false;
@@ -24,7 +24,7 @@
       die();
     }
 
-    if (!isset($_POST["description"])) {
+    if (empty($_POST["description"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "description";
       $response["status"] = false;
@@ -32,7 +32,7 @@
       die();
     }
 
-    if (!isset($_POST["content"])) {
+    if (empty($_POST["content"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "note";
       $response["status"] = false;
@@ -40,7 +40,7 @@
       die();
     }
 
-    if (!isset($_POST["author"])) {
+    if (empty($_POST["author"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "author";
       $response["status"] = false;
@@ -48,7 +48,7 @@
       die();
     }
 
-    if (!isset($_POST["date"])) {
+    if (empty($_POST["date"])) {
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "date";
       $response["status"] = false;
