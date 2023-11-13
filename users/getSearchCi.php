@@ -3,18 +3,18 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 
 if($_SERVER["REQUEST_METHOD"] === "GET"){
-  include_once "../utils/users/getSearchUser.php";
+  include_once "../utils/users/getSearchCi.php";
 
-  if(empty($_GET["username"])){
+  if(empty($_GET["ci"])){
     $response["message"] = "Ingrese datos";
     $response["status"] = false;
     echo json_encode($response);
     die();
   }
 
-  $username = $_GET["username"];
+  $ci = $_GET["ci"];
 
-  echo json_encode(getSearchUser($username));
+  echo json_encode(getSearchCi($ci));
 
 }
 ?>

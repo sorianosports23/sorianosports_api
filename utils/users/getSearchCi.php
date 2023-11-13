@@ -1,7 +1,7 @@
 <?php
   include_once "../database/connection.php";
 
-  function getSearchUser($username){
+  function getSearchCi($ci){
     global $db;
 
     $response = [
@@ -9,8 +9,8 @@
       "status" => false
     ];
 
-    $stmt = $db->prepare("SELECT username, fullname, email, age, ci, phone FROM users WHERE username = ?");
-    $stmt->bind_param('s', $username);
+    $stmt = $db->prepare("SELECT username, fullname, email, age, ci, phone FROM users WHERE ci = ?");
+    $stmt->bind_param('i', $ci);
 
     if($stmt->execute()){
       $result = $stmt->get_result();
@@ -22,7 +22,6 @@
     }
     else{
       $response["messege"] = "No se encontro el usuario o no existe, porfavor revise su entrada";
-   
       $db->close();
       return $response;
     }
