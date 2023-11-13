@@ -10,16 +10,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $DATA = json_decode(file_get_contents("php://input", true), true);
 
-  if ( empty($DATA["id"])){
-    echo json_encode([
-      "message" => "No ingresaste uno de los valores",
-      "status" => false
-    ]);
+  if( empty($DATA["nameCity"])){
+    $response["message"] = "No ingresaste ningún valor";
+    $response["input"] = "nameCity";
+    $response["status"] = false;
+    echo json_encode($response);
     die();
   }
 
-  $id = $DATA["id"];
+  if( empty($DATA["nameSport"])){
+    $response["message"] = "No ingresaste ningún valor";
+    $response["input"] = "nameSport";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+  }
 
-  echo json_encode(deleteCityPlace($id));
+  $nameCity = $DATA["nameCity"];
+  $nameSport = $DATA["nameSport"];
+
+  echo json_encode(deleteCityPlace($nameCity, $nameSport));
 }
 ?>
