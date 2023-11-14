@@ -1,7 +1,7 @@
 <?php
   include_once "../database/connection.php";
 
-  function getCityPlace() {
+  function getAllCity() {
     global $db;
 
     $sql = "SELECT * FROM cityPlace";
@@ -12,7 +12,7 @@
     $cityPlace = [];
 
     while ($row = $result->fetch_assoc()) {
-      array_push($cityPlace, $row);
+      array_push($cityPlace, $row["nameSport"]);
     }
     
     $response["status"] = true;

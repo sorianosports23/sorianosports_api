@@ -6,16 +6,7 @@
 
     include_once  "../utils/cities/getAllCity.php";
 
-    if(empty($_GET["allCity"])){
-      $response["message"] = "No hay registros";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
-
-    $allCity = $_GET["allCity"];
-
-    echo json_encode(getAllCity($allCity));
+    echo json_encode(getAllCity());
   }
   else{
     echo json_encode([
