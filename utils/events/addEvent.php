@@ -14,9 +14,6 @@
     $stmt = $db->prepare("INSERT INTO event(name, place, time, sport, description, date_ev) VALUES(?,?,?,?,?,?)");
     $stmt->bind_param('ssssss', $name, $place, $time, $sport, $description, $date_ev);
 
-    $res = $stmt->execute();
-
-
     if ($stmt->execute()) {
       $response["message"] = "Evento añadido";
       $response["status"] = true;
