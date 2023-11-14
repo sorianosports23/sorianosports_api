@@ -26,15 +26,24 @@
       die();
     }
 
+    if (empty($DATA["typeSport"])) {
+      $response["message"] = "No se envio uno de los valores";
+      $response["input"] = "typeSport";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
+
     //Esta condicional funciona cuando uno de los campos está vacio
     //La sentencia sirve para indicar que valor es el que no fue mandado o escrito
   
     $name = $DATA["nameCity"]; 
     $nameSport = $DATA["nameSport"];
+    $typeSport = $DATA["typeSport"];
     
     include_once "../utils/cities/addCity.php";
 
-    echo json_encode(addCityplace($name, $nameSport));
+    echo json_encode(addCityplace($name, $nameSport, $typeSport));
   } else {
     echo json_encode([
       "message" => "Metodo equivocado para la peticion",

@@ -3,7 +3,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addCityPlace($nameCity, $nameSport){
+  function addCityPlace($nameCity, $nameSport, $typeSport){
     global $db;
 
     $response = [
@@ -11,8 +11,8 @@
       "status" => false
     ];
 
-    $stmt = $db->prepare("INSERT INTO cityPlace(nameCity, nameSport) VALUES(?,?)");
-    $stmt->bind_param('ss', $nameCity, $nameSport);
+    $stmt = $db->prepare("INSERT INTO cityPlace(nameCity, nameSport, typeSport) VALUES(?,?,?)");
+    $stmt->bind_param('sss', $nameCity, $nameSport, $typeSport);
 
     //consulta preparada esta consulta es util para prevenir inyeccion de SQL y mejora la
     //seguridad de nuestro código
