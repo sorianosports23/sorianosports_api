@@ -3,7 +3,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addSports($name, $city){
+  function addSports($name, $city, $typeSport){
     global $db;
 
     $response = [
@@ -12,8 +12,8 @@
     ];
 
 
-    $stmt = $db->prepare("INSERT INTO cityPlace(nameSport, nameCity) VALUES(?, ?)");
-    $stmt->bind_param('ss', $name, $city);
+    $stmt = $db->prepare("INSERT INTO cityPlace(nameSport, nameCity, typeSport) VALUES(?, ?, ?)");
+    $stmt->bind_param('sss', $name, $city, $typeSport);
 
     if ($stmt->execute()) {
       $response["message"] = "Deporte añadido";

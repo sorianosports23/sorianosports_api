@@ -26,13 +26,21 @@
       die();
     }
 
+    if(empty($DATA["typeSport"])){
+      $response["message"] = "No se envio uno de los valores";
+      $response["input"] = "typeSport";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
   
     $name = $DATA["name"]; 
-    $city= $DATA["city"];
+    $city = $DATA["city"];
+    $typeSport = $DATA["typeSport"];
 
     include_once "../utils/sports/addSports.php";
 
-    echo json_encode(addSports($name, $city));
+    echo json_encode(addSports($name, $city, $typeSport));
   } else {
     echo json_encode([
       "message" => "Metodo equivocado para la peticion",

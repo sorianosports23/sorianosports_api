@@ -58,7 +58,8 @@ CREATE TABLE greatEvents(
 CREATE TABLE sports(
   id INT(3) AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(60),
-  city VARCHAR(60)
+  city VARCHAR(60),
+  typeSport VARCHAR(60)
 )
 
 CREATE TABLE sports_date(
