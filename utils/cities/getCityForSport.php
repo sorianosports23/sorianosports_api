@@ -6,7 +6,7 @@
 
     $response = ["status" => false];
 
-    $stmt = $db->prepare("SELECT nameCity FROM cityPlace WHERE nameSport = ? ");
+    $stmt = $db->prepare("SELECT nameCity, typeSport FROM cityPlace WHERE nameSport = ? ");
     $stmt->bind_param('s', $nameSport);
 
     $stmt->execute();
@@ -16,7 +16,7 @@
     
 
     while ($row = $result->fetch_assoc()) {
-      array_push($citySports, $row);
+      array_push($citySports, $row["nameCity"]);
     }
     
     $response["status"] = true;
