@@ -1,5 +1,6 @@
 <?php
   include_once "../database/connection.php";
+  include_once "getPermissions.php";
 
   function getSearchUser($username){
     global $db;
@@ -15,6 +16,7 @@
     if($stmt->execute()){
       $result = $stmt->get_result();
       $user = $result->fetch_assoc();
+      $user["permissions"] = getPermissionsFromUser($user["username"]);
       $response["data"] = $user;
       $response["status"] = true;
       $db->close();

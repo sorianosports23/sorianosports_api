@@ -1,21 +1,20 @@
 <?php
   include_once "../database/connection.php";
 
-  function modifySearch($keywordID, $keyword, $newKeyword) {
-    global $db;    
+  function editStatus($id, $st, $newStatus){
+    global $db;
 
     $response = [
       "message" => "",
       "status" => false
     ];
 
-    $stmt = $db->prepare("UPDATE keywords SET $keyword = ? WHERE id = ?");
-    $stmt->bind_param('si', $newKeyword,  $keywordID);
-    //stmt = "UPDATE city SET $city = ? WHERE id = ?;
-    
+    $stmt = $db->prepare("UPDATE contact SET status = ? WHERE id = ?");
+    $stmt->bind_param('ii', $newStatus, $id);
 
+    
     if ($stmt->execute()) {
-      $response["message"] = "Busqueda editada";
+      $response["message"] = "Estado editado";
       $response["status"] = true;
       $db->close();
       return $response;
@@ -24,8 +23,7 @@
       $response["message"] = $stmt->error;
       $db->close();
       return $response;
-    }
   }
+}
 ?>
-
 
