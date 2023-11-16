@@ -9,14 +9,14 @@
 
     $response = ["status"=>false];
 
-    $place = [];
+    $inscription = [];
 
     while ($row = $result->fetch_assoc()) {
-      array_push($place, $row);
+      array_push($inscription, $row);
     }
     
     $response["status"] = true;
-    $response["data"] = $place;
+    $response["data"] = $inscription;
     $db->close();
     return $response;
   }
