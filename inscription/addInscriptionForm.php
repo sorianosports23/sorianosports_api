@@ -1,11 +1,12 @@
 <?php
   header("Content-Type: application/json");
   header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Headers: *");
   
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     include_once "../utils/inscription/addInscription.php";
 
-    $_POST = json_decode(file_get_contents("php://input", true), true);
+    // $_POST = json_decode(file_get_contents("php://input", true), true);
    
     //1
     if(empty($_POST["name"])){
@@ -40,15 +41,15 @@
       die();
     }
 
-    if(empty($_FILES["imageCI"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "imageCI";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_FILES["imageCI"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "imageCI";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
     //5
-    if(empty($_POST["gender"])){
+    if(!isset($_POST["gender"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "gender";
       $response["status"] = false;
@@ -56,7 +57,7 @@
       die();  
     }
     //6
-    if(empty($_POST["medicalRecord"])){
+    if(!isset($_POST["medicalRecord"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "medicalRecord";
       $response["status"] = false;
@@ -64,21 +65,21 @@
       die();
     }
 
-    if(empty($_POST["expiration"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "expiration";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["expiration"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "expiration";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_FILES["imageMedicalRecord"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "imageMedicalRecord";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_FILES["imageMedicalRecord"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "imageMedicalRecord";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
     //7
     if(empty($_POST["city"])){
@@ -105,29 +106,29 @@
       die();
     }
     //10
-    if(empty($_POST["email"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "email";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["email"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "email";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["schoolYear"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "schoolYear";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["schoolYear"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "schoolYear";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["alternativePhone"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "alternativePhone";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["alternativePhone"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "alternativePhone";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
     if(empty($_POST["sportTimeStart"])){
       $response["message"] = "No se envio uno de los valores";
@@ -161,31 +162,31 @@
       die();
     }
 
-    if(empty($_POST["anotherSports"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "anotherSports";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["anotherSports"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "anotherSports";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["oldPractisedSport"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "oldPractisedSport";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["oldPractisedSport"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "oldPractisedSport";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["practisedSport"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "practisedSport";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["practisedSport"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "practisedSport";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["medicalAssitence"])){
+    if(empty($_POST["medicalAssistence"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "medicalAssistence";
       $response["status"] = false;
@@ -193,31 +194,31 @@
       die();
     }
 
-    if(empty($_POST["whatMedicalCare"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "whatMedicalCare";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["whatMedicalCare"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "whatMedicalCare";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["medicalAssitencePhone"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "medicalAssistencePhone";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["medicalAssitencePhone"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "medicalAssistencePhone";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["bloodGroup"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "bloodGroup";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["bloodGroup"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "bloodGroup";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["diabetes"])){
+    if(!isset($_POST["diabetes"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "diabetes";
       $response["status"] = false;
@@ -225,7 +226,7 @@
       die();
     }
 
-    if(empty($_POST["hypertension"])){
+    if(!isset($_POST["hypertension"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "hypertension";
       $response["status"] = false;
@@ -233,7 +234,7 @@
       die();
     }
 
-    if(empty($_POST["fractures"])){
+    if(!isset($_POST["fractures"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "fractures";
       $response["status"] = false;
@@ -241,7 +242,7 @@
       die();
     }
 
-    if(empty($_POST["allergy"])){
+    if(!isset($_POST["allergy"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "allergy";
       $response["status"] = false;
@@ -249,7 +250,7 @@
       die();
     }
 
-    if(empty($_POST["asthma"])){
+    if(!isset($_POST["asthma"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "asthma";
       $response["status"] = false;
@@ -257,15 +258,15 @@
       die();
     }
 
-    if(empty($_POST["otherDiseases"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "otherDiseases";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["otherDiseases"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "otherDiseases";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
 
-    if(empty($_POST["wearGlasses"])){
+    if(!isset($_POST["wearGlasses"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "wearGlasses";
       $response["status"] = false;
@@ -273,57 +274,49 @@
       die();
     }
 
-    if(empty($_POST["whatTypeGlasses"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "whatTypeGlasses";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
-
-    if(empty($_POST["state"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "state";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
+    // if(empty($_POST["whatTypeGlasses"])){
+    //   $response["message"] = "No se envio uno de los valores";
+    //   $response["input"] = "whatTypeGlasses";
+    //   $response["status"] = false;
+    //   echo json_encode($response);
+    //   die();
+    // }
     
 
     $name = $_POST["name"];
     $lastname = $_POST["lastname"];
     $birthday = $_POST["birthday"];
     $ci = $_POST["ci"];
-    $imageCI = $_FILES["imageCI"];
+    $imageCI = $_FILES["imageCI"] ?? NULL;
     $gender = $_POST["gender"];
     $medicalRecord = $_POST["medicalRecord"];
-    $expiration = $_POST["expiration"];
-    $imageMedicalRecord = $_FILES["imageMedicalRecord"];
+    $expiration = $_POST["expiration"] ?? NULL;
+    $imageMedicalRecord = $_FILES["imageMedicalRecord"] ?? NULL;
     $city = $_POST["city"];
     $residence = $_POST["residence"];
     $phone = $_POST["phone"];
-    $email = $_POST["email"];
-    $schoolYear = $_POST["schoolYear"];
-    $alternativePhone = $_POST["alternativePhone"];
+    $email = $_POST["email"] ?? NULL;
+    $schoolYear = $_POST["schoolYear"] ?? NULL;
+    $alternativePhone = $_POST["alternativePhone"] ?? NULL;
     $sportTimeStart = $_POST["sportTimeStart"];
     $sportTimeEnd = $_POST["sportTimeEnd"];
     $activity = $_POST["activity"];
     $activityPlace = $_POST["activityPlace"];
-    $anotherSports = $_POST["anotherSports"];
-    $oldPractisedSport = $_POST["oldPractisedSport"];
+    $anotherSports = $_POST["anotherSports"] ?? NULL;
+    $oldPractisedSport = $_POST["oldPractisedSport"] ?? NULL;
     $medicalAssitence = $_POST["medicalAssistence"];
-    $whatMedicalCare = $_POST["whatMedicalCare"];
-    $medicalAssitencePhone = $_POST["medicalAssistencePhone"];
-    $bloodGroup = $_POST["bloodGroup"];
+    $whatMedicalCare = $_POST["whatMedicalCare"] ?? NULL;
+    $medicalAssitencePhone = $_POST["medicalAssistencePhone"] ?? NULL;
+    $bloodGroup = $_POST["bloodGroup"] ?? NULL;
     $diabetes = $_POST["diabetes"];
     $hypertension = $_POST["hypertension"];
     $fractures = $_POST["fractures"];
     $allergy = $_POST["allergy"];
     $asthma = $_POST["asthma"];
-    $otherDiseases =$_POST["otherDiseases"];
+    $otherDiseases =$_POST["otherDiseases"] ?? NULL;
     $wearGlasses = $_POST["wearGlasses"];
-    $whatTypeGlasses = $_POST["whatTypeGlasses"];
-    $state = $_POST["state"];
+    $whatTypeGlasses = $_POST["whatTypeGlasses"] ?? NULL;
+    $state = 1;
 
-    echo json_encode(addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $imageMedicalRecord, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearsGlasses, $whatTypeGlasses, $state ));
+    echo json_encode(addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $imageMedicalRecord, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state ));
   }

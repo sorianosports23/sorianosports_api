@@ -95,13 +95,14 @@ CREATE TABLE inscriptionForm(
   schoolYear VARCHAR(50),
   alternativePhone INT(9),
   sportTimeStart TIME,
-  sportTimeEnd TIME, 
+  sportTimeEnd TIME,
+  activity BOOLEAN, 
   activityPlace VARCHAR(60),
-  anotherSport VARCHAR(60),
+  anotherSports VARCHAR(60),
   oldPractisedSport VARCHAR(60),
   medicalAssistence VARCHAR(60),
   whatMedicalCare VARCHAR(60),
-  medicalAssitencePhone INT(9),
+  medicalAssistencePhone INT(9),
   bloodGroup VARCHAR(50),
   diabetes BOOLEAN, 
   hypertension BOOLEAN,
@@ -110,7 +111,12 @@ CREATE TABLE inscriptionForm(
   asthma BOOLEAN,
   otherDiseases VARCHAR(255),
   wearGlasses BOOLEAN,
-  whatTypeGlasses VARCHAR(60)
+  whatTypeGlasses VARCHAR(60),
+  state INT(1),
+  ciImage LONGBLOB,
+  ciImgType VARCHAR(20),
+  medicalRecordImg LONGBLOB,
+  medicalRecordImgType VARCHAR(20)
 );
 
 CREATE TABLE search(
