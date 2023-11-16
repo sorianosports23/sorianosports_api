@@ -4,7 +4,7 @@
   function getInscription() {
     global $db;
 
-    $sql = "SELECT * FROM inscriptionForm";
+    $sql = "SELECT * FROM inscriptionform ORDER BY id DESC";
     $result = $db->query($sql);
 
     $response = ["status"=>false];
