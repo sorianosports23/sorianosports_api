@@ -39,5 +39,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $place = $DATA["place"];
   $newPlace = $DATA["newPlace"];
 
-  echo json_encode(modifySearch($placeID, $place, $newPlace));
+  echo json_encode(modifyPlace($placeID, $place, $newPlace));
 }

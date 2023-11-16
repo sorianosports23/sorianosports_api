@@ -4,7 +4,7 @@
   function getContact(int $pag) {
     global $db;
 
-    $sql = "SELECT * FROM contact";
+    $sql = "SELECT * FROM contact ORDER BY id desc";
     $result = $db->query($sql);
     
     $limit = 10;
