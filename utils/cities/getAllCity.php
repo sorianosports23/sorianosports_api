@@ -12,7 +12,11 @@
     $cityPlace = [];
 
     while ($row = $result->fetch_assoc()) {
-      array_push($cityPlace, $row["nameSport"]);
+      $sport = [
+        "name" => $row["nameSport"],
+        "type" => $row["typeSport"]
+      ];
+      array_push($cityPlace, $sport);
     }
     
     $response["status"] = true;

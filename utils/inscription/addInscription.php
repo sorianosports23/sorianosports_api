@@ -3,7 +3,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $imageMedicalRecord, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state) {
+  function addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state, $imageMedicalRecord) {
     global $db;
 
     $response = [

@@ -1,0 +1,34 @@
+<?php
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Headers: *");
+
+  if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    include_once "../utils/inscription/getImageCI.php";
+
+    if (empty($_GET["id"])) {
+      echo json_encode([
+        "status" => false,
+        "message" => "No se ingreso el ID"
+      ]);
+      die();
+    }
+
+    $id = $_GET["id"];
+
+    $resImage = getImage($id);
+
+    if (!$resImage["status"]) {
+      echo json_encode($resImage);
+      die();
+    }
+
+    header("Content-Type: ". $resImage["type"]);
+
+    echo unserialize($resImage["image"]);
+  } else {
+    echo json_encode([
+      "message" => "Metodo incorrecto para la petición",
+      "correct_method" => "GET"
+    ]);
+  }
+?>

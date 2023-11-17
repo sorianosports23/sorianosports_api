@@ -8,9 +8,9 @@
 
     $pag = 0;
 
-      if (!empty($_GET["pag"])) {
-       $pag = $_GET["pag"] - 1;
-      }
+    if (!empty($_GET["pag"])) {
+      $pag = $_GET["pag"] - 1;
+    }
 
     echo json_encode(getInscription($pag));
   } else {

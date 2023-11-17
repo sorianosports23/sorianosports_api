@@ -1,9 +1,10 @@
 <?php
    header("Content-Type: application/json");
    header("Access-Control-Allow-Origin: *");
+   header("Access-Control-Allow-Headers: *");
 
    if($_SERVER["REQUEST_METHOD"] === "GET") {
-    if(!empty($_GET["inscriptionID"])){
+    if(empty($_GET["inscriptionID"])){
       echo json_encode([
         "status" => false,
         "message" => "Por favor ingrese ID",

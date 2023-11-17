@@ -186,7 +186,7 @@
     //   die();
     // }
 
-    if(empty($_POST["medicalAssistence"])){
+    if(!isset($_POST["medicalAssistence"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "medicalAssistence";
       $response["status"] = false;
@@ -318,5 +318,5 @@
     $whatTypeGlasses = $_POST["whatTypeGlasses"] ?? NULL;
     $state = 1;
 
-    echo json_encode(addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $imageMedicalRecord, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state ));
+    echo json_encode(addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state, $imageMedicalRecord));
   }
