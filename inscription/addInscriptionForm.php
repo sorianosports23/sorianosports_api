@@ -9,6 +9,14 @@
     // $_POST = json_decode(file_get_contents("php://input", true), true);
    
     //1
+    if(empty($_POST["username"])){
+      $response["message"] = "No se envio uno de los valores";
+      $response["input"] = "name";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
+
     if(empty($_POST["name"])){
       $response["message"] = "No se envio uno de los valores";
       $response["input"] = "name";
@@ -282,7 +290,7 @@
     //   die();
     // }
     
-
+    $username = $_POST["username"];
     $name = $_POST["name"];
     $lastname = $_POST["lastname"];
     $birthday = $_POST["birthday"];
