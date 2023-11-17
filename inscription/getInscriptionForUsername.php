@@ -3,7 +3,8 @@
   header("Access-Control-Allow-Origin: *");
 
   if($_SERVER["REQUEST_METHOD"] === "GET") {
-   if(!isset($_GET["usernameInscrip"])){
+
+   if(empty($_GET["username"])){
      echo json_encode([
        "status" => false,
        "message" => "Por favor ingrese nombre de usuario",
@@ -11,7 +12,7 @@
      die();
    }
 
-   $usernameInscrip = $_GET["usernameInscrip"];
+   $usernameInscrip = $_GET["username"];
    include_once  "../utils/inscription/getInscriptionForUsername.php";
 
    echo json_encode(getInscriptionForUsername($usernameInscrip));
