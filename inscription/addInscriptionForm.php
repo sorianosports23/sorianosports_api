@@ -5,17 +5,11 @@
   
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     include_once "../utils/inscription/addInscription.php";
+    include_once "../utils/userauth.php";
 
     // $_POST = json_decode(file_get_contents("php://input", true), true);
    
     //1
-    if(empty($_POST["username"])){
-      $response["message"] = "No se envio uno de los valores";
-      $response["input"] = "name";
-      $response["status"] = false;
-      echo json_encode($response);
-      die();
-    }
 
     if(empty($_POST["name"])){
       $response["message"] = "No se envio uno de los valores";
@@ -289,8 +283,7 @@
     //   echo json_encode($response);
     //   die();
     // }
-    
-    $username = $_POST["username"];
+
     $name = $_POST["name"];
     $lastname = $_POST["lastname"];
     $birthday = $_POST["birthday"];
@@ -326,5 +319,5 @@
     $whatTypeGlasses = $_POST["whatTypeGlasses"] ?? NULL;
     $state = 1;
 
-    echo json_encode(addInscription($name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state, $imageMedicalRecord));
+    echo json_encode(addInscription($username, $name, $lastname, $birthday, $ci, $imageCI, $gender, $medicalRecord, $expiration, $city, $residence, $phone, $email, $schoolYear, $alternativePhone, $sportTimeStart, $sportTimeEnd, $activity, $activityPlace, $anotherSports, $oldPractisedSport, $medicalAssitence, $whatMedicalCare, $medicalAssitencePhone, $bloodGroup, $diabetes, $hypertension, $fractures, $allergy, $asthma, $otherDiseases, $wearGlasses, $whatTypeGlasses, $state, $imageMedicalRecord));
   }
