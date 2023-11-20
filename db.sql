@@ -146,7 +146,8 @@ CREATE TABLE event (
   time VARCHAR(50),
   sport VARCHAR(50),
   description VARCHAR(255),
-  date_ev DATE
+  date_ev DATE,
+  urlUbi VARCHAR(255)
 );
 
 /*Base de Datos de la API que almacena datos del usuario en una tabla llamada "users"*/
