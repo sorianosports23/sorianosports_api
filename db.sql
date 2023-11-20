@@ -117,6 +117,7 @@ CREATE TABLE inscriptionForm(
   ciImgType VARCHAR(20),
   medicalRecordImg LONGBLOB,
   medicalRecordImgType VARCHAR(20)
+  
 );
 
 CREATE TABLE search(
@@ -148,5 +149,7 @@ CREATE TABLE event (
   description VARCHAR(255),
   date_ev DATE
 );
+
+
 
 /*Base de Datos de la API que almacena datos del usuario en una tabla llamada "users"*/
