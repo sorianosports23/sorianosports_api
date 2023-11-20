@@ -2,7 +2,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addEvent($name, $image, $place, $time, $sport, $description, $date_ev){
+  function addEvent($name, $image, $imgType, $place, $time, $sport, $description, $date_ev){
     global $db;
 
     $response = [
@@ -11,9 +11,9 @@
     ];
 
 
-    $stmt = $db->prepare("INSERT INTO event(name, image, place, time, sport, description, date_ev) VALUES(?,?,?,?,?,?)");
+    $stmt = $db->prepare("INSERT INTO event(name, image, imgType, place, time, sport, description, date_ev) VALUES(?,?,?,?,?,?)");
     $serializedImage = serialize(file_get_contents($image["tmp_name"]));
-    $stmt->bind_param('sssssss', $name, $image["type"], $place, $time, $sport, $description, $date_ev);
+    $stmt->bind_param('sssssssss', $name, $serializedImage, $imgType, $place, $time, $sport, $description, $date_ev);
 
     if ($stmt->execute()) {
       $response["message"] = "Evento añadido";
