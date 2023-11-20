@@ -8,8 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   include_once "../utils/events/addEvent.php";
 
-  $_POST = json_decode(file_get_contents("php://input", true), true);
-
   if(empty($_POST["name"])){
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "name";
@@ -42,6 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die();
   }
 
+  if(empty($_POST["urlUbi"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "urlUbi";
+    $response["status"] = false;
+    die();
+  }
   
   $name = $_POST["name"];
   $image = $_FILES["image"];
@@ -50,7 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $sport = $_POST["sport"];
   $description = $_POST["description"];
   $date_ev = $_POST["date_ev"];
+  $urlUbi = $_POST["urlUbi"];
 
-  echo json_encode(addEvent($name, $image, $place, $time, $sport, $description, $date_ev));
+  echo json_encode(addEvent($name, $image, $place, $time, $sport, $description, $date_ev, $urlUbi));
+}
+else{
+  echo json_encode([
+    "message" => "Metodo equivocado para la peticion",
+    "correct_method" => "POST"
+  ]);
 }
 ?>
