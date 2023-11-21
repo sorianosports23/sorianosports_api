@@ -1,10 +1,10 @@
 <?php
  include_once "../database/connection.php";
 
- function getEvent($id){
+ function getEventID($id){
   global $db;
 
-  $query = "SELECT * FROM event WHERE id = $id";
+  $query = "SELECT name, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi FROM event WHERE id = $id";
 
   $resultData = [
     "status" => false,

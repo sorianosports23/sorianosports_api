@@ -14,7 +14,7 @@
     $eventsID = $_GET["eventsID"];
     include_once  "../utils/events/geteventsID.php";
 
-    echo json_encode(getEvent($eventsID));
+    echo json_encode(getEventID($eventsID));
   }
   else{
     echo json_encode([
