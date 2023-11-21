@@ -4,7 +4,7 @@
   function getImage($id) {
     global $db;
 
-    $query = "SELECT img, imgType FROM event WHERE id = $id";
+    $query = "SELECT image, imgType FROM event WHERE id = $id";
     $res = $db->query($query);
 
     if ($res->num_rows > 0) {
@@ -12,7 +12,7 @@
 
       $imageDB = $res->fetch_assoc();
 
-      $imageInfo["img"] = $imageDB["img"];
+      $imageInfo["img"] = $imageDB["image"];
       $imageInfo["imgType"] = $imageDB["imgType"];
 
       return $imageInfo;

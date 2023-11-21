@@ -13,9 +13,9 @@ function addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscript
 
     $stmt = $db->prepare("INSERT INTO event (name, image, imgType, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $imageContent = file_get_contents($image["tmp_name"]);
+    $serializedImage = serialize(file_get_contents($image["tmp_name"]));
 
-    $stmt->bind_param('sssssssssssss', $name, $imageContent, $image["type"], $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi);
+    $stmt->bind_param('sssssssssssss', $name, $serializedImage, $image["type"], $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi);
 
 
     if ($stmt->execute()) {

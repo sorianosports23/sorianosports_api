@@ -13,14 +13,20 @@
     ]
   ];
 
+  $eventsID = [];
+
   $result = $db->query($query);
 
   if($result->num_rows==0){
-    $db->close();
-      return $resultData;
+     return $resultData;
+  }
+  else{
+    $resultData["status"] = true;
+    $resultData["data"] = $eventsID  ;
   }
   $resultFetch = $result->fetch_assoc();
   $resultData["data"] = $resultFetch;
+  $db->close();
   return $resultData;
 
  }
