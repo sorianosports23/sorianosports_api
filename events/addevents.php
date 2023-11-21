@@ -24,6 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die();
   }
 
+  if(empty($_POST["city"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "city";
+    $response["status"] = false;
+    echo json_encode($response);
+    die();
+  }
+
   if(empty($_POST["place"])){
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "place";
@@ -40,6 +48,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die();
   }
 
+  if(empty($_POST["sport"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "sport";
+    $response["status"] = false;
+    die();
+  }
+
+  if(empty($_POST["rules"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "rules";
+    $response["status"] = false;
+    die();
+  }
+
+  if(empty($_POST["inscriptionInfo"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "inscriptionInfo";
+    $response["status"] = false;
+    die();
+  }
+
+  if(empty($_POST["extraInfo"])){
+    $response["message"] = "No ingresaste uno de los valores";
+    $response["input"] = "extraInfo";
+    $response["status"] = false;
+    die();
+  }
+
+
   if(empty($_POST["urlUbi"])){
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "urlUbi";
@@ -49,14 +86,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
   $name = $_POST["name"];
   $image = $_FILES["image"];
+  $city = $_POST["city"];
   $place = $_POST["place"];
   $time = $_POST["time"];
   $sport = $_POST["sport"];
+  $rules = $_POST["rules"];
+  $inscriptionInfo = $_POST["inscriptionInfo"];
+  $extraInfo = $_POST["extraInfo"];
   $description = $_POST["description"];
   $date_ev = $_POST["date_ev"];
   $urlUbi = $_POST["urlUbi"];
 
-  echo json_encode(addEvent($name, $image, $place, $time, $sport, $description, $date_ev, $urlUbi));
+  echo json_encode(addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi));
 }
 else{
   echo json_encode([
