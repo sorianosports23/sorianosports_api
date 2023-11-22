@@ -10,6 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $DATA = json_decode(file_get_contents("php://input", true), true);
 
+  if (!empty($_FILES["newEvent"])) {
+    $DATA = $_POST;
+    $DATA["newEvent"] = $_FILES["newEvent"];
+  }
+
   if (empty($DATA["eventID"])) {
     $response["message"] = "No se envio uno de los valores";
     $response["input"] = "EventID";

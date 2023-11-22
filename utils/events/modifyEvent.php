@@ -10,7 +10,15 @@
     ];
 
     $stmt = $db->prepare("UPDATE event SET $events = ? WHERE id = ?");
-    $stmt->bind_param('si', $newEvent, $eventsID);
+
+    if ($events === "image") {
+      $img = serialize(file_get_contents($newEvent["tmp_name"]));
+      $stmt->bind_param("si", $img, $eventsID);
+    } else {
+      $stmt->bind_param("si", $newEvent, $eventsID);
+    }
+
+    // $stmt->bind_param('si', $newEvent, $eventsID);
     //stmt = "UPDATE city SET $city = ? WHERE id = ?;
     
 

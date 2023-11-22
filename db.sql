@@ -141,14 +141,20 @@ CREATE TABLE cityPlace (
 );
 
 CREATE TABLE event (
-  id INT(3) AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100),
-  place VARCHAR(50),
-  time VARCHAR(50),
-  sport VARCHAR(50),
-  description VARCHAR(255),
-  date_ev DATE,
-  urlUbi VARCHAR(255)
+  id  int(3) AUTO_INCREMENT PRIMARY KEY,
+  name  varchar(50),
+  image  longblob,
+  imgType  varchar(20),
+  city  varchar(60),
+  place  varchar(50),
+  time  varchar(50),
+  sport  varchar(50),
+  rules  text,
+  inscriptionInfo  text,
+  extraInfo  text,
+  description  text,
+  date_ev  date,
+  urlUbi  text
 );
 
 
