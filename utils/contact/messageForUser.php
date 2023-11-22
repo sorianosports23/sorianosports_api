@@ -1,7 +1,8 @@
 <?php
+
   include_once "../database/connection.php";
 
-  function messageForUser($username, $message){
+  function messageForUser($id, $message){
     global $db;
 
     $response = [
@@ -9,8 +10,8 @@
       "status" => true
     ];
 
-    $stmt = $db->prepare("INSERT INTO messageForUser(username, message) VALUES(?,?)");
-    $stmt->bind_param('ss', $username, $message);
+    $stmt = $db->prepare("INSERT INTO messageForUser(id, message) VALUES(?,?)");
+    $stmt->bind_param('is', $id, $message);
   
     if ($stmt->execute()) {
       $response["message"] = "Mensaje enviado correctamente";

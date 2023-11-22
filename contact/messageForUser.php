@@ -8,9 +8,9 @@
 
       $DATA = json_decode(file_get_contents("php://input", true), true);
 
-      if(empty($DATA["username"])){
+      if(empty($DATA["id"])){
         $response["message"] = "No ingreso uno de los valores";
-        $response["input"] = "username";
+        $response["input"] = "id";
         $response["status"] = false;
         echo json_encode($response);
         die();
@@ -24,10 +24,10 @@
         die();
       }
 
-      $username = $DATA["username"];
+      $id = $DATA["id"];
       $message = $DATA["message"];
 
-      echo json_encode(messageForUser($username, $message));
+      echo json_encode(messageForUser($id, $message));
     }else {
       echo json_encode([
         "message" => "Metodo equivocado para la peticion",

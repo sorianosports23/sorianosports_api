@@ -1,30 +1,27 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getMessageForUser($username){
+function getMessageForUser($id) {
     global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
+    $resultData = [
+        "status" => false,
+        "data" => null
     ];
 
-    $sql = "SELECT username, message FROM messageForUser WHERE username = '$username'";
+    $sql = "SELECT message FROM messageForUser WHERE id = $id";
     $result = $db->query($sql);
-  
 
-    $usernameMessage = [];
-
-    while ($row = $result->fetch_assoc()) {
-      array_push($usernameMessage, $row["username"]);
-      array_push($usernameMessage, $row["message"]);
+    if ($result->num_rows > 0) {
+      
+        $idMessage = $result->fetch_assoc();
+        $resultData["data"] = $idMessage;
+        $resultData["status"] = true;
+    } else {
+        $resultData["message"] = "No se encontró ningún mensaje para el usuario con ID: $id";
     }
-    
-    $response["message"] = "Se envio correctamente";
-    $response["status"] = true;
-    $response["data"] = $usernameMessage;
-    $response["data"] = $usernameMessage;
+
     $db->close();
-    return $response;
-  }
-?>
+
+    return $resultData;
+}

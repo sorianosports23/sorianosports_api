@@ -3,18 +3,18 @@
   header("Access-Control-Allow-Origin: *");
 
   if($_SERVER["REQUEST_METHOD"] === "GET") {
-   if(!isset($_GET["usernameMessage"])){
+   if(!isset($_GET["idMessage"])){
      echo json_encode([
        "status" => false,
-       "message" => "Por favor ingrese nombre de usuario",
+       "message" => "Por favor ingrese id",
      ]);
      die();
    }
 
-   $usernameMessage = $_GET["usernameMessage"];
+   $idMessage = $_GET["idMessage"];
    include_once  "../utils/contact/getMessageForUser.php";
 
-   echo json_encode(getMessageForUser($usernameMessage));
+   echo json_encode(getMessageForUser($idMessage));
  }
  else{
    echo json_encode([
