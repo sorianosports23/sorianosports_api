@@ -9,8 +9,8 @@
       "status" => false
     ];
 
-    $stmt = $db->prepare("UPDATE event SET $place = ? WHERE id = ?");
-    $stmt->bind_param('ii', $placeID, $newPlace);
+    $stmt = $db->prepare("UPDATE place SET $place = ? WHERE id = ?");
+    $stmt->bind_param('si', $newPlace, $placeID);
     //stmt = "UPDATE city SET $city = ? WHERE id = ?;
     
 
