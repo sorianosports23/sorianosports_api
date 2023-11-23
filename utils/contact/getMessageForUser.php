@@ -13,9 +13,8 @@ function getMessageForUser($id) {
     $result = $db->query($sql);
 
     if ($result->num_rows > 0) {
-      
         $idMessage = $result->fetch_assoc();
-        $resultData["data"] = $idMessage;
+        $resultData["data"] = $idMessage["message"];
         $resultData["status"] = true;
     } else {
         $resultData["message"] = "No se encontró ningún mensaje para el usuario con ID: $id";
