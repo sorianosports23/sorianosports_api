@@ -40,7 +40,9 @@
     $subject = $DATA["subject"];
     $messageContact = $DATA["messageContact"];
 
+    $user = $DATA["username"] ?? null;
 
-    echo json_encode(addContact($name, $email, $subject, $messageContact));
+
+    echo json_encode(addContact($user, $name, $email, $subject, $messageContact));
   }
 ?>

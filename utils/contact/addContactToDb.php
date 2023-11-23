@@ -3,7 +3,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addContact($name, $email, $subject, $messageContact){
+  function addContact($username, $name, $email, $subject, $messageContact){
     global $db;
 
     $response = [
@@ -12,8 +12,8 @@
     ];
 
     $status = 1;
-    $stmt = $db->prepare("INSERT INTO contact(name, email, subject, messageContact, status) VALUES(?,?,?,?,?)");
-    $stmt->bind_param('ssssi', $name, $email, $subject, $messageContact, $status);
+    $stmt = $db->prepare("INSERT INTO contact(username, name, email, subject, messageContact, status) VALUES(?,?,?,?,?,?)");
+    $stmt->bind_param('sssssi', $username, $name, $email, $subject, $messageContact, $status);
 
 
     if ($stmt->execute()) {
