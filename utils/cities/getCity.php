@@ -9,7 +9,7 @@
 
     $response = ["status"=>false];
 
-    $sports = [];
+    $check = [];
 
     while ($row = $result->fetch_assoc()) {
       $data = [

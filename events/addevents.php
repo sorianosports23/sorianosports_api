@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "sport";
     $response["status"] = false;
+    echo json_encode($response);
     die();
   }
 
@@ -59,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "rules";
     $response["status"] = false;
+    echo json_encode($response);
     die();
   }
 
@@ -66,13 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "inscriptionInfo";
     $response["status"] = false;
-    die();
-  }
-
-  if(empty($_POST["extraInfo"])){
-    $response["message"] = "No ingresaste uno de los valores";
-    $response["input"] = "extraInfo";
-    $response["status"] = false;
+    echo json_encode($response);
     die();
   }
 
@@ -81,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response["message"] = "No ingresaste uno de los valores";
     $response["input"] = "urlUbi";
     $response["status"] = false;
+    echo json_encode($response);
     die();
   }
   
@@ -92,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $sport = $_POST["sport"];
   $rules = $_POST["rules"];
   $inscriptionInfo = $_POST["inscriptionInfo"];
-  $extraInfo = $_POST["extraInfo"];
+  $extraInfo = $_POST["extraInfo"] ?? null;
   $description = $_POST["description"];
   $date_ev = $_POST["date_ev"];
   $urlUbi = $_POST["urlUbi"];

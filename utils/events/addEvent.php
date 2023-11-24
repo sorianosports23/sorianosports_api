@@ -11,7 +11,7 @@ function addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscript
         "status" => false
     ];
 
-    $stmt = $db->prepare("INSERT INTO event (name, image, imgType, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO event (name, image, imgType, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $serializedImage = serialize(file_get_contents($image["tmp_name"]));
 

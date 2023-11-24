@@ -3,7 +3,7 @@
   include_once "../database/connection.php";
   include_once "../utils/errorcodes.php";
 
-  function addGreatEvents($image, $name, $description, $placelink, $date) {
+  function addGreatEvents($image, $name, $description, $placelink, $date, $check) {
     global $db;
 
     $response = [
@@ -11,11 +11,11 @@
       "status" => false
     ];
 
-    $stmt = $db->prepare("INSERT INTO greatEvents (image, imgType, name, description, placelink, date) VALUES (?,?,?,?,?,?)");
+    $stmt = $db->prepare("INSERT INTO greatEvents (image, imgType, name, description, placelink, date, check_Great) VALUES (?,?,?,?,?,?,?)");
 
     $serializedImage = serialize(file_get_contents($image["tmp_name"]));
 
-    $stmt->bind_param("ssssss", $serializedImage, $image["type"], $name, $description, $placelink, $date );
+    $stmt->bind_param("ssssssi", $serializedImage, $image["type"], $name, $description, $placelink, $date, $check );
 
     if ($stmt->execute()) {
       $response["message"] = "Gran Evento Añadido Correctamente";
