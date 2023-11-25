@@ -8,14 +8,15 @@
 
     $response = [
       "message" => "",
-      "status" => false
+      "status" => false,
+      "input" => ""
     ];
 
     $userPasswordHashed = getUserPassword($username);
 
     if ($userPasswordHashed === null) {
       $response["message"] = "No existe ese usuario";
-      $response["err"] = "noexists";
+      $response["input"] = "username";
       return $response;
     }
 
