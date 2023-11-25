@@ -32,8 +32,7 @@
       return $response;
     } else {
       $response["message"] = "Contraseña incorrecta";
-      $response["hash"] = $userPasswordHashed;
-      $response["password"] = $password;
+      $response["input"] = "password";
       return $response;
     }
   }
