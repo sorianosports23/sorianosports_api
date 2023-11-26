@@ -8,14 +8,15 @@
 
     $response = [
       "message" => "",
-      "status" => false
+      "status" => false,
+      "input" => ""
     ];
 
     $userPasswordHashed = getUserPassword($username);
 
     if ($userPasswordHashed === null) {
       $response["message"] = "No existe ese usuario";
-      $response["err"] = "noexists";
+      $response["input"] = "username";
       return $response;
     }
 
@@ -32,8 +33,7 @@
       return $response;
     } else {
       $response["message"] = "Contraseña incorrecta";
-      $response["hash"] = $userPasswordHashed;
-      $response["password"] = $password;
+      $response["input"] = "password";
       return $response;
     }
   }
