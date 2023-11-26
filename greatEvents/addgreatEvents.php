@@ -54,7 +54,7 @@
     $description = $_POST["description"];
     $placelink = $_POST["placelink"];
     $date = $_POST["date"];
-    $check= $_POST["check_Great"] ?? 0;
+    
 
     include_once "../utils/greatEvents/addGreatEvents.php";
 
