@@ -2,7 +2,7 @@
 include_once "../database/connection.php";
 include_once "../utils/errorcodes.php";
 
-function addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi)
+function addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi, $check_Great)
 {
     global $db;
 
@@ -11,11 +11,11 @@ function addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscript
         "status" => false
     ];
 
-    $stmt = $db->prepare("INSERT INTO event (name, image, imgType, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO event (name, image, imgType, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi, check_Great) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $serializedImage = serialize(file_get_contents($image["tmp_name"]));
 
-    $stmt->bind_param('sssssssssssss', $name, $serializedImage, $image["type"], $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi);
+    $stmt->bind_param('sssssssssssssi', $name, $serializedImage, $image["type"], $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi, $check_Great);
 
 
     if ($stmt->execute()) {
