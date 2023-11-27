@@ -6,8 +6,6 @@
   include_once "../auth/admin.php";
   
   if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    include_once "../utils/userauth.php";
-    include_once "../auth/users.php";
     include_once "../utils/getusers.php";
 
     // inicia la variable $pag en 0
