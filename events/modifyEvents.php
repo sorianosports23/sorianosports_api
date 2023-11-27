@@ -31,13 +31,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die();
   }
 
-  if (empty($DATA["newEvent"])) {
-    $response["message"] = "No se envio uno de los valores";
-    $response["input"] = "newEvent";
-    $response["status"] = false;
-    echo json_encode($response);
-    die();
+  if ($DATA["event"] === "check_Great") {
+    if (!isset($DATA["newEvent"])) {
+      $response["message"] = "No se envio uno de los valores";
+      $response["input"] = "newEvent";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
+  } else {
+    if (empty($DATA["newEvent"])) {
+      $response["message"] = "No se envio uno de los valores";
+      $response["input"] = "newEvent";
+      $response["status"] = false;
+      echo json_encode($response);
+      die();
+    }
   }
+
 
   $eventsID = $DATA["eventID"];
   $event = $DATA["event"];

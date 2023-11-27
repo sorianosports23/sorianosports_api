@@ -36,13 +36,22 @@
       die();
     }
 
+    if (empty($DATA["age"])) {
+      $result["message"] = "No ingresaste uno de los valores";
+      $result["err"] = "age";
+      echo json_encode($result);
+      die();
+    }
+
     $newFullname = $DATA["fullname"];
     $newEmail = $DATA["email"];
     $newPhone = $DATA["phone"];
+    $newAge = $DATA["age"];
 
     $newFullnameChanged = modifyUser($username, "fullname", $newFullname);
     $newEmailChanged = modifyUser($username, "email", $newEmail);
     $newPhoneChanged = modifyUser($username, "phone", $newPhone);
+    $newAgeChanged = modifyUser($username, "age", $newAge);
 
     if (!$newFullnameChanged["status"]) {
       $result["message"] = "Ocurrio un error al actualizar los datos";
@@ -61,6 +70,13 @@
     if (!$newPhoneChanged["status"]) {
       $result["message"] = "Ocurrio un error al actualizar los datos";
       $result["err"] = "phone";
+      echo json_encode($result);
+      die();
+    }
+
+    if (!$newAgeChanged["status"]) {
+      $result["message"] = "Ocurrio un error al actualizar los datos";
+      $result["err"] = "age";
       echo json_encode($result);
       die();
     }

@@ -14,6 +14,8 @@
     if ($events === "image") {
       $img = serialize(file_get_contents($newEvent["tmp_name"]));
       $stmt->bind_param("si", $img, $eventsID);
+    } else if ($events === "check_Great") {
+      $stmt->bind_param("ii", $newEvent, $eventsID);
     } else {
       $stmt->bind_param("si", $newEvent, $eventsID);
     }

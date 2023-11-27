@@ -30,22 +30,22 @@
       $response["status"] = false;
       echo json_encode($response);
       die();
-  } else {
-      $password = $DATA["password"];
-      $passwordValidationResult = validationPass($password);
+    } else {
+        $password = $DATA["password"];
+        $passwordValidationResult = validationPass($password);
 
-      if ($passwordValidationResult == 1) {
-          $response["message"] = "La contraseña es demasiado corta.";
-          $response["status"] = false;
-          echo json_encode($response);
-          die();
-      } elseif ($passwordValidationResult == 2) {
-          $response["message"] = "La contraseña es demasiado larga.";
-          $response["status"] = false;
-          echo json_encode($response);
-          die();
+        if ($passwordValidationResult == 1) {
+            $response["message"] = "La contraseña es demasiado corta.";
+            $response["status"] = false;
+            echo json_encode($response);
+            die();
+        } elseif ($passwordValidationResult == 2) {
+            $response["message"] = "La contraseña es demasiado larga.";
+            $response["status"] = false;
+            echo json_encode($response);
+            die();
+        }
       }
-  }
 
     if (empty($DATA["email"])) {
       $response["message"] = "No se envio uno de los valores";

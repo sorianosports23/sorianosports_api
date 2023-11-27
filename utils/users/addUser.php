@@ -14,7 +14,7 @@
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $db->prepare("INSERT INTO users(username, fullname, password, email, age, ci, phone) VALUES(?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssiii', $username, $fullname, $hashedPassword, $email, $age, $ci, $phone);
+    $stmt->bind_param('sssssii', $username, $fullname, $hashedPassword, $email, $age, $ci, $phone);
 
     if ($stmt->execute()) {
       $response["message"] = "Usuario añadido";

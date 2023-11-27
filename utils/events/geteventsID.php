@@ -4,7 +4,7 @@
  function getEventID($id){
   global $db;
 
-  $query = "SELECT id, name, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi FROM event WHERE id = $id";
+  $query = "SELECT id, name, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi, check_Great FROM event WHERE id = $id";
 
   $resultData = [
     "status" => false,

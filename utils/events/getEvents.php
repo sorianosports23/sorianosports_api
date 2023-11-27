@@ -4,7 +4,7 @@
   function getEvents(int $pag) {
     global $db;
 
-    $sql = "SELECT id, name, city, place, time, sport, date_ev, description FROM event";
+    $sql = "SELECT id, name, city, place, time, sport, date_ev, description, check_Great FROM event";
     $result = $db->query($sql);
     
     $limit = 10;
