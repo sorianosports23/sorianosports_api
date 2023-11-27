@@ -15,7 +15,7 @@
     
 
     if ($stmt->execute()) {
-      $response["message"] = "Nombre de FAQ editado";
+      $response["message"] = "Respuesra de la FAQ editada";
       $response["status"] = true;
       $db->close();
       return $response;
