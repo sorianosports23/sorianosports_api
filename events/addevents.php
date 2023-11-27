@@ -93,9 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $description = $_POST["description"];
   $date_ev = $_POST["date_ev"];
   $urlUbi = $_POST["urlUbi"];
-  $greatEvent = $_POST["greatevent"] ?? 0;
+  $check= $_POST["check_Great"] ?? 0;
 
-  echo json_encode(addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi, $greatEvent));
+  echo json_encode(addEvent($name, $image, $city, $place, $time, $sport, $rules, $inscriptionInfo, $extraInfo, $description, $date_ev, $urlUbi, $check));
 }
 else{
   echo json_encode([
