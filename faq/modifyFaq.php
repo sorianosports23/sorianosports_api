@@ -8,7 +8,7 @@ include_once "../auth/admin.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // include_once "../utils/auth/eventsauth.php";
 
-  include_once "../utils/cities/modifyCity.php";
+  include_once "../utils/faq/modifyFaq.php";
 
   $DATA = json_decode(file_get_contents("php://input", true), true);
 
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 
 
-  $faqID = $DATA["id"];
+  $faqID = $DATA["faqID"];
   $name = $DATA["name"];
   $newName = $DATA["newName"];
 

@@ -9,8 +9,8 @@
       "status" => false
     ];
 
-    $stmt = $db->prepare("UPDATE city SET $name = ? WHERE id = ?");
-    $stmt->bind_param('ii', $faqID, $newName);
+    $stmt = $db->prepare("UPDATE faq SET $name = ? WHERE id = ?");
+    $stmt->bind_param('si', $newName, $faqID);
     //stmt = "UPDATE city SET $city = ? WHERE id = ?;
     
 
