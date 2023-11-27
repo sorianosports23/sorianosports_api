@@ -5,7 +5,7 @@
     global $db;
 
     $response = [
-      "menssage" => "",
+      "message" => "",
       "status" => false
     ];
 
