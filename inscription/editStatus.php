@@ -3,6 +3,8 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
+include_once "../auth/admin.php";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // include_once "../utils/auth/eventsauth.php";
   include_once "../utils/inscription/editStatus.php";
@@ -29,6 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $id = $DATA["id"];
   $newStatus = $DATA["newStatus"];
 
-  echo json_encode(editStatus($id, $newStatus));
+  echo json_encode(editStatus($id, $newStatus, ""));
 }
 ?>

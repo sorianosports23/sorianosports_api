@@ -3,6 +3,8 @@
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Headers: *");
 
+  include_once "../auth/admin.php";
+
   $DATA = json_decode(file_get_contents("php://input", true), true);
 
   if ($_SERVER["REQUEST_METHOD"] === "POST") {

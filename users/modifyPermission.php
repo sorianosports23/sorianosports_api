@@ -3,6 +3,7 @@
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Headers: Content-Type, Authorization");
  
+  include_once "../auth/admin.php";
 
   if($_SERVER["REQUEST_METHOD"] === "POST"){
     

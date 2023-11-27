@@ -3,6 +3,8 @@
    header("Access-Control-Allow-Origin: *");
    header("Access-Control-Allow-Headers: *");
 
+   include_once "../auth/admin.php";
+
    if($_SERVER["REQUEST_METHOD"] === "GET") {
     if(empty($_GET["inscriptionID"])){
       echo json_encode([

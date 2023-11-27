@@ -4,19 +4,10 @@
   header("Access-Control-Allow-Headers: *");
 
   if($_SERVER["REQUEST_METHOD"] === "GET") {
+    include_once "../utils/userauth.php";
+    include_once  "../utils/inscription/getInscriptionForUsername.php";
 
-   if(empty($_GET["username"])){
-     echo json_encode([
-       "status" => false,
-       "message" => "Por favor ingrese nombre de usuario",
-     ]);
-     die();
-   }
-
-   $usernameInscrip = $_GET["username"];
-   include_once  "../utils/inscription/getInscriptionForUsername.php";
-
-   echo json_encode(getInscriptionForUsername($usernameInscrip));
+    echo json_encode(getInscriptionForUsername($username));
  }
  else{
    echo json_encode([

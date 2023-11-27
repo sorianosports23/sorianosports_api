@@ -4,6 +4,8 @@
   header("Access-Control-Allow-Headers: Content-Type, Authorization");
   header("Access-Control-Allow-Methods: POST");
 
+  include_once "../auth/admin.php";
+
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
     include_once "../utils/userauth.php";

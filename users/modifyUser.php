@@ -3,8 +3,9 @@
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Headers: Content-Type");
 
+  include_once "../auth/admin.php";
+
   if ($_SERVER["REQUEST_METHOD"] === "PUT") {
-    include_once "../utils/auth/editusersauth.php";
     include_once "../utils/modifyuser.php";
 
     $DATA = json_decode(file_get_contents("php://input", true), true);

@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  // include_once "../utils/auth/eventsauth.php";
+  include_once "../utils/userauth.php";
   include_once "../utils/inscription/editStatus.php";
 
   $DATA = json_decode(file_get_contents("php://input", true), true);
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die();
   }
 
-  if ( empty($DATA["newStatus"])){
+  if (empty($DATA["newStatus"])){
     $response["message"] = "No se envio uno de los valores";
     $response["input"] = "newStatus";
     $response["status"] = false;
@@ -29,6 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $id = $DATA["id"];
   $newStatus = $DATA["newStatus"];
 
-  echo json_encode(editStatus($id, $newStatus));
+  echo json_encode(editStatus($id, $newStatus, $username));
 }
 ?>

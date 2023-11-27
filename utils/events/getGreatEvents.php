@@ -1,10 +1,10 @@
 <?php
   include_once "../database/connection.php";
 
-  function getGreatEvent($check){
+  function getGreatEvent(){
     global $db;
 
-    $sql = "SELECT * FROM event WHERE check_Great = 1 LIMIT 10";
+    $sql = "SELECT id, name, description, date_ev FROM event WHERE check_Great = 1 LIMIT 10";
     $result = $db->query($sql);
 
     $response = ["status"=>false];
