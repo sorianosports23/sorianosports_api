@@ -1,10 +1,10 @@
 CREATE DATABASE apiSPT;
+
 use apiSPT;
 
 CREATE TABLE users(
   username VARCHAR(50) PRIMARY KEY NOT NULL,
-  fullname VARCHAR(50) NOT NULL
-  password text NOT NULL,
+  fullname VARCHAR(50) NOT NULL password text NOT NULL,
   email VARCHAR(50) NOT NULL,
   age INT(3) NOT NULL,
   ci INT(8) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE users(
 CREATE TABLE news (
   id INT(5) AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255),
-  img LONGBLOB,  
+  img LONGBLOB,
   description VARCHAR(255),
   note TEXT,
   imgType VARCHAR(20),
@@ -60,9 +60,7 @@ CREATE TABLE sports(
   name VARCHAR(60),
   city VARCHAR(60),
   typeSport VARCHAR(60)
-)
-
-CREATE TABLE sports_date(
+) CREATE TABLE sports_date(
   id INT(3) PRIMARY KEY,
   day VARCHAR(10),
   hour VARCHAR(10)
@@ -80,7 +78,7 @@ CREATE TABLE place(
 );
 
 CREATE TABLE inscriptionForm(
-	id INT(6) AUTO_INCREMENT PRIMARY KEY,
+  id INT(6) AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(70),
   lastname VARCHAR(70),
   birthday DATE,
@@ -96,7 +94,7 @@ CREATE TABLE inscriptionForm(
   alternativePhone INT(9),
   sportTimeStart TIME,
   sportTimeEnd TIME,
-  activity BOOLEAN, 
+  activity BOOLEAN,
   activityPlace VARCHAR(60),
   anotherSports VARCHAR(60),
   oldPractisedSport VARCHAR(60),
@@ -104,7 +102,7 @@ CREATE TABLE inscriptionForm(
   whatMedicalCare VARCHAR(60),
   medicalAssistencePhone INT(9),
   bloodGroup VARCHAR(50),
-  diabetes BOOLEAN, 
+  diabetes BOOLEAN,
   hypertension BOOLEAN,
   fractures BOOLEAN,
   allergy BOOLEAN,
@@ -116,19 +114,21 @@ CREATE TABLE inscriptionForm(
   ciImage LONGBLOB,
   ciImgType VARCHAR(20),
   medicalRecordImg LONGBLOB,
-  medicalRecordImgType VARCHAR(20)
-  
+  medicalRecordImgType VARCHAR(20),
+  startInscription DATE,
+  endInscription DATE,
+  username VARCHAR(255)
 );
 
 CREATE TABLE search(
   id int(5) AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(60) UNIQUE, 
+  name VARCHAR(60) UNIQUE,
   url VARCHAR(255),
   description VARCHAR(255)
 );
 
 CREATE TABLE keywords (
-  id INT(5), 
+  id INT(5),
   name VARCHAR(255),
   PRIMARY KEY (id, name),
   FOREIGN KEY (id) REFERENCES search(id)
@@ -138,25 +138,24 @@ CREATE TABLE cityPlace (
   nameCity VARCHAR(60),
   nameSport VARCHAR(60),
   PRIMARY KEY(nameCity, nameSport);
+
 );
 
 CREATE TABLE event (
-  id  int(3) AUTO_INCREMENT PRIMARY KEY,
-  name  varchar(50),
-  image  longblob,
-  imgType  varchar(20),
-  city  varchar(60),
-  place  varchar(50),
-  time  varchar(50),
-  sport  varchar(50),
-  rules  text,
-  inscriptionInfo  text,
-  extraInfo  text,
-  description  text,
-  date_ev  date,
-  urlUbi  text
+  id int(3) AUTO_INCREMENT PRIMARY KEY,
+  name varchar(50),
+  image longblob,
+  imgType varchar(20),
+  city varchar(60),
+  place varchar(50),
+  time varchar(50),
+  sport varchar(50),
+  rules text,
+  inscriptionInfo text,
+  extraInfo text,
+  description text,
+  date_ev date,
+  urlUbi text
 );
-
-
 
 /*Base de Datos de la API que almacena datos del usuario en una tabla llamada "users"*/

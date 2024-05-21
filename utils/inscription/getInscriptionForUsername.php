@@ -1,33 +1,30 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getInscriptionForUsername($username){
-    global $db;
+function getInscriptionForUsername($username)
+{
+  global $db;
 
-    $response = [ 
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("SELECT id, name, lastname, birthday, ci, gender, medicalRecord, expiration, city, residence, phone, email, schoolYear, alternativePhone, sporTTimeStart, sportTimeEnd, activity, activityPlace, anotherSports, oldPractisedSport, medicalAssistence, whatMedicalCare, medicalAssistencePhone, bloodGroup, diabetes, hypertension, fractures, allergy, asthma, otherDiseases, wearGlasses, whatTypeGlasses, state, startInscription, endInscription FROM inscriptionForm WHERE username = ?");
-    $stmt->bind_param('s', $username);
+  $stmt = $db->prepare("SELECT id, name, lastname, birthday, ci, gender, medicalRecord, expiration, city, residence, phone, email, schoolYear, alternativePhone, sporTTimeStart, sportTimeEnd, activity, activityPlace, anotherSports, oldPractisedSport, medicalAssistence, whatMedicalCare, medicalAssistencePhone, bloodGroup, diabetes, hypertension, fractures, allergy, asthma, otherDiseases, wearGlasses, whatTypeGlasses, state, startInscription, endInscription FROM inscriptionForm WHERE username = :user");
+  $stmt->bindParam(':user', $username);
+  $stmt->execute();
 
-    $res = $stmt->execute();
+  $inscription = [];
 
-    $inscription = [];
+  $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($res) {
-      $result = $stmt->get_result();
-      while ($row = $result->fetch_assoc()) {
-        array_push($inscription, $row);
-      }
+  if ($res) {
+    foreach ($res as $row) {
+      array_push($inscription, $row);
     }
+  }
 
-    $response["status"] = true;
-    $response["data"] = $inscription;
-    $db->close();
-    return $response;
-
- }
-  
-?>
+  $response["status"] = true;
+  $response["data"] = $inscription;
+  return $response;
+}

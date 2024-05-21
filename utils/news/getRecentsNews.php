@@ -1,36 +1,36 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getNews() {
-    global $db;
+function getNews()
+{
+  global $db;
 
-    $query = "SELECT id, name, description, author, date FROM news ORDER BY id DESC LIMIT 3";
-    $res = $db->query($query);
+  $query = "SELECT id, name, description, author, date FROM news ORDER BY id DESC LIMIT 3";
+  $stmt = $db->prepare($query);
+  $stmt->execute();
+  $res = $stmt->fetchAll();
 
-    if ($res->num_rows > 0) {
-      $news = [];
+  if (count($res) > 0) {
+    $news = [];
 
-      while ($row = $res->fetch_assoc()) {
-        array_push($news, [
-          "id" => $row["id"],
-          "name" => $row["name"],
-          "description" => $row["description"],
-          "image" => "/news/getNewsImg.php?id=".$row["id"],
-          "author" => $row["author"],
-          "date" => $row["date"]
-        ]);
-      }
-      $db->close();
-      return [
-        "status" => true,
-        "data" => $news
-      ];
-    } else {
-      $db->close();
-      return [
-        "status" => true,
-        "data" => []
-      ];
+    foreach ($res as $row) {
+      array_push($news, [
+        "id" => $row["id"],
+        "name" => $row["name"],
+        "description" => $row["description"],
+        "image" => "/news/getNewsImg.php?id=" . $row["id"],
+        "author" => $row["author"],
+        "date" => $row["date"]
+      ]);
     }
+    return [
+      "status" => true,
+      "data" => $news
+    ];
+  } else {
+    return [
+      "status" => true,
+      "data" => []
+    ];
   }
-?>
+}

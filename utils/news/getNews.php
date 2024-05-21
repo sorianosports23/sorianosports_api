@@ -1,52 +1,52 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getNews(int $pag) {
-    global $db;
+function getNews(int $pag)
+{
+  global $db;
 
-    $sql = "SELECT id, name, description, author, date FROM news";
-    $result = $db->query($sql);
-    
-    $limit = 10;
+  $pageSql = $pag * 10;
 
-    $newsCount = $result->num_rows;
+  $sql = "SELECT id, name, description, author, date, (SELECT count(id) FROM news) as totalRows FROM news LIMIT 10 OFFSET :pageOffset";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("pageOffset", $pagSql);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
 
-    $totalPages = round($newsCount / 10) + 1;
-    
-    $index = $pag*10;
-    
-    $maxIndex = $index + 10;
-    
-    if ($maxIndex > $newsCount) {
-      $maxIndex = $newsCount;
-    }
- 
-    $response = [
-      "status" => true,
-      "data" => [],
-      "pagination" => [
-        "totalPages" => $totalPages,
-        "currentPage" => $pag + 1
-      ]
-    ];
+  $newsCount = count($result) > 0 ? $result[0]['totalRows'] : 0;
 
-    if ($index > $newsCount) {
-      echo json_encode($response);
-      die();
-    }
+  $totalPages = round($newsCount / 10) + 1;
 
-    $events = [];
+  $index = $pag * 10;
 
-    for ($i = $index; $i < $maxIndex; $i++) {
-      $resUser = $result->data_seek($i);
-      $row = $result->fetch_assoc();
-      $row["image"] = "/news/getNewsImg.php?id=".$row["id"];
-     
-      array_push($events, $row);
-    }
-    
-    $response["data"] = $events;
-    $db->close();
-    return $response;
+  $maxIndex = $index + 10;
+
+  if ($maxIndex > $newsCount) {
+    $maxIndex = $newsCount;
   }
-?>
+
+  $response = [
+    "status" => true,
+    "data" => [],
+    "pagination" => [
+      "totalPages" => $totalPages,
+      "currentPage" => $pag + 1
+    ]
+  ];
+
+  if ($index > $newsCount) {
+    echo json_encode($response);
+    die();
+  }
+
+  $events = [];
+
+
+  foreach ($result as $row) {
+    $row["image"] = "/news/getNewsImg.php?id=" . $row["id"];
+    array_push($events, $row);
+  }
+
+  $response["data"] = $events;
+  return $response;
+}

@@ -1,23 +1,24 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getFaq() {
-    global $db;
+function getFaq()
+{
+  global $db;
 
-    $sql = "SELECT * FROM faq";
-    $result = $db->query($sql);
+  $sql = "SELECT * FROM faq";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $faq = [];
+  $faq = [];
 
-    while ($row = $result->fetch_assoc()) {
-      array_push($faq, $row);
-    }
-    
-    $response["status"] = true;
-    $response["data"] = $faq;
-    $db->close();
-    return $response;
+  foreach ($result as $row) {
+    array_push($faq, $row);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $faq;
+  return $response;
+}

@@ -1,17 +1,18 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getUserPassword($username) {
-    global $db;
+function getUserPassword($username)
+{
+  global $db;
 
-    $query = "SELECT password FROM users WHERE username = '$username'";
+  $query = "SELECT password FROM users WHERE username = '$username'";
+  $stmt = $db->prepare($query);
+  $stmt->execute();
 
-    $result = $db->query($query);
-    if ($result->num_rows === 0) {
-      return null;
-    }
-    $resultFetch = $result->fetch_assoc();
-    return $resultFetch["password"];
+
+  $result = $stmt->fetch();
+  if (!$result) {
+    return null;
   }
-
-?>
+  return $result["password"];
+}

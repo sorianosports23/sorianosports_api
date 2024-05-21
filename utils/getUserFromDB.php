@@ -1,18 +1,19 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getUserFromDB($username) {
-    global $db;
+function getUserFromDB($username)
+{
+  global $db;
 
-    $query = "SELECT username, fullname, email, age, ci, phone FROM users WHERE username = '$username'";
+  $query = "SELECT username, fullname, email, age, ci, phone FROM users WHERE username = :user";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam(":user", $username);
+  $stmt->execute();
 
-    $result = $db->query($query);
-    if ($result->num_rows === 0) {
-      return null;
-    }
-
-    $resultFetch = $result->fetch_assoc();
-    $db->close();
-    return $resultFetch;
+  $result = $stmt->fetch();
+  if (!$result) {
+    return null;
   }
-?>
+
+  return $result;
+}

@@ -1,25 +1,29 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getMessages($username) {
-    global $db;
+function getMessages($username)
+{
+  global $db;
 
-    $query = "SELECT * FROM contact WHERE username = '$username'";
-    $res = $db->query($query);
+  $query = "SELECT * FROM contact WHERE username = :username";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam(":username", $username);
 
-    $response = [
-      "status" => false,
-    ];
+  $response = [
+    "status" => false,
+  ];
 
-    $messages = [];
+  $messages = [];
 
-    while ($row = $res->fetch_assoc()) {
-      array_push($messages, $row);
-    }
+  $stmt->execute();
 
-    $response["status"] = true;
-    $response["data"] = $messages;
-    $db->close();
-    return $response;
+  $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach ($res as $message) {
+    array_push($messages, $message);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $messages;
+  return $response;
+}

@@ -1,24 +1,25 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getDirective() {
-    global $db;
+function getDirective()
+{
+  global $db;
 
-    $sql = "SELECT id, name, rank, imgType FROM directive";
-    $result = $db->query($sql);
+  $sql = "SELECT id, name, rank, imgType FROM directive";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $contact = [];
+  $contact = [];
 
-    while ($row = $result->fetch_assoc()) {
-      $row["image"] = "/directive/getImage.php?id=".$row["id"];
-      array_push($contact, $row);
-    }
-    
-    $response["status"] = true;
-    $response["data"] = $contact;
-    $db->close();
-    return $response;
+  foreach ($result as $row) {
+    $row["image"] = "/directive/getImage.php?id=" . $row["id"];
+    array_push($contact, $row);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $contact;
+  return $response;
+}

@@ -1,27 +1,28 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getAllCity() {
-    global $db;
+function getAllCity()
+{
+  global $db;
 
-    $sql = "SELECT * FROM cityPlace";
-    $result = $db->query($sql);
+  $sql = "SELECT * FROM cityPlace";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $cityPlace = [];
+  $cityPlace = [];
 
-    while ($row = $result->fetch_assoc()) {
-      $sport = [
-        "name" => $row["nameSport"],
-        "type" => $row["typeSport"]
-      ];
-      array_push($cityPlace, $sport);
-    }
-    
-    $response["status"] = true;
-    $response["data"] = $cityPlace;
-    $db->close();
-    return $response;
+  foreach ($result as $row) {
+    $sport = [
+      "name" => $row["nameSport"],
+      "type" => $row["typeSport"]
+    ];
+    array_push($cityPlace, $sport);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $cityPlace;
+  return $response;
+}
