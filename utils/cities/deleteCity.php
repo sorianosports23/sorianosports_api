@@ -1,27 +1,26 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function deleteCityPlace($nameCity, $nameSport) {
-    global $db;
+function deleteCityPlace($nameCity, $nameSport, $typeSport)
+{
+  global $db;
 
-    $response = [
-      "menssage" => "",
-      "status" => false
-    ];
+  $response = [
+    "menssage" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("DELETE FROM cityPlace WHERE nameCity = ? AND nameSport = ?");
-    $stmt->bind_param('ss', $nameCity, $nameSport);
+  $stmt = $db->prepare("DELETE FROM cityPlace WHERE nameCity = :city AND nameSport = :sport AND typesport = :type");
+  $stmt->bindParam("city", $nameCity);
+  $stmt->bindParam("sport", $nameSport);
+  $stmt->bindParam("type", $typeSport);
 
-    if ($stmt->execute()) {
-      $response["message"] = "Ciudad eliminada";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  if ($stmt->execute()) {
+    $response["message"] = "Deporte eliminado";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo eliminar el deporte";
+    return $response;
   }
-?>
+}

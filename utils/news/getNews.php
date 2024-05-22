@@ -13,7 +13,7 @@ function getNews(int $pag)
   $stmt->execute();
   $result = $stmt->fetchAll();
 
-  $newsCount = count($result) > 0 ? $result[0]['totalRows'] : 0;
+  $newsCount = count($result) > 0 ? $result[0]['totalrows'] : 0;
 
   $totalPages = round($newsCount / 10) + 1;
 

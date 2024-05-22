@@ -1,36 +1,28 @@
 <?php
-  include_once "../database/connection.php";
-  include_once "getPermissions.php";
+include_once "../database/connection.php";
+include_once "getPermissions.php";
 
-  function getSearchCi($ci){
-    global $db;
+function getSearchCi($ci)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("SELECT username, fullname, email, age, ci, phone FROM users WHERE ci = ?");
-    $stmt->bind_param('i', $ci);
+  $stmt = $db->prepare("SELECT username, fullname, email, age, ci, phone FROM users WHERE ci = :ci");
+  $stmt->bindParam('ci', $ci);
+  $stmt->execute();
+  $user = $stmt->fetch();
 
-    if($stmt->execute()){
-      $result = $stmt->get_result();
-      $user = $result->fetch_assoc();
-      if (!$user) {
-        $response["data"] = [];
-        $response["message"] = "El usuario no existe";
-        return $response;
-      }
-      $user["permissions"] = getPermissionsFromUser($user["username"]);
-      $response["data"] = $user;
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    }
-    else{
-      $response["messege"] = "No se encontro el usuario o no existe, porfavor revise su entrada";
-      $db->close();
-      return $response;
-    }
+  if (!$user) {
+    $response["data"] = [];
+    $response["message"] = "El usuario no existe";
+    return $response;
   }
-?>
+  $user["permissions"] = getPermissionsFromUser($user["username"]);
+  $response["data"] = $user;
+  $response["status"] = true;
+  return $response;
+}

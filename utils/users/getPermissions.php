@@ -1,21 +1,24 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getPermissionsFromUser($username) {
-    global $db;
+function getPermissionsFromUser($username)
+{
+  global $db;
 
-    $sql = "SELECT permission FROM permission WHERE username = '$username'";
-    $result = $db->query($sql);
+  $sql = "SELECT permission FROM permissions WHERE username = :user";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(":user", $username);
+  $stmt->execute();
+  $result = $stmt->fetchAll();
 
-    $perms = [];
+  $perms = [];
 
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        array_push($perms, $row["permission"]);
-      }
-      return $perms;
-    } else {
-      return [];
-    }
+  if (!$result)
+    return [];
+
+  foreach ($result as $row) {
+    array_push($perms, $row["permission"]);
   }
-?>
+
+  return $perms;
+}

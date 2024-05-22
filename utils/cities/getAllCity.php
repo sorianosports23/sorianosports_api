@@ -16,8 +16,8 @@ function getAllCity()
 
   foreach ($result as $row) {
     $sport = [
-      "name" => $row["nameSport"],
-      "type" => $row["typeSport"]
+      "name" => $row["namesport"],
+      "type" => $row["typesport"]
     ];
     array_push($cityPlace, $sport);
   }

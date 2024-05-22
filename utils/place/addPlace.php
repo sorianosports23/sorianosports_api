@@ -1,30 +1,32 @@
 <?php
- 
-  include_once "../database/connection.php";
-  include_once "../utils/errorcodes.php";
 
-  function addPlace($sport, $age, $city, $place, $teacher, $date, $time){
-    global $db;
+include_once "../database/connection.php";
+include_once "../utils/errorcodes.php";
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+function addPlace($sport, $age, $city, $place, $teacher, $date, $time)
+{
+  global $db;
 
-    $stmt = $db->prepare("INSERT INTO place (sport, age, city, place, teacher, date, time) VALUES (?,?,?,?,?,?,?)");
-    $stmt->bind_param("sssssss", $sport, $age, $city, $place, $teacher, $date, $time);
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    if ($stmt->execute()) {
-      $response["message"] = "Lugar añadido correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $db->error;
-      $db->close();
-      return $response;
-    }
+  $stmt = $db->prepare("INSERT INTO place (sport, age, city, place, teacher, date, time) VALUES (:sport,:age,:city,:place,:teacher,:date,:time)");
+  $stmt->bindParam("sport", $sport);
+  $stmt->bindParam("age", $age);
+  $stmt->bindParam("city", $city);
+  $stmt->bindParam("place", $place);
+  $stmt->bindParam("teacher", $teacher);
+  $stmt->bindParam("date", $date);
+  $stmt->bindParam("time", $time);
+
+  if ($stmt->execute()) {
+    $response["message"] = "Lugar añadido correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo añadir el lugar";
+    return $response;
   }
-
-?>
+}

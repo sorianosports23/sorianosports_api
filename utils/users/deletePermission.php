@@ -1,51 +1,47 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function deletePermission($username, $permission){
-    global $db;
+function deletePermission($username, $permission)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("DELETE FROM permission WHERE username = ? AND permission = ?");
-    $stmt->bind_param('ss', $username, $permission);
+  $stmt = $db->prepare("DELETE FROM permissions WHERE username = :user AND permission = :permission");
+  $stmt->bindParam('user', $username);
+  $stmt->bindParam('permission', $permission);
 
-    if($stmt->execute()){
-      $response["message"] = "Permiso eliminado Correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    }
-    else{
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  if ($stmt->execute()) {
+    $response["message"] = "Permiso eliminado correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo eliminar el permiso";
+    return $response;
   }
+}
 
-  function deletePermissionForUsers($username){
-    global $db;
+function deletePermissionForUsers($username)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("DELETE FROM permission WHERE username = ?");
-    $stmt->bind_param('s', $username);
+  $stmt = $db->prepare("DELETE FROM permission WHERE username = :user");
+  $stmt->bindParam('user', $username);
 
-    if($stmt->execute()){
-      $response["message"] = "Eliminado correctamente";
-      $response["status"] = false;
-      $db->close();
-      return $response;
-    }
-    else{
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  if ($stmt->execute()) {
+    $response["message"] = "Eliminado correctamente";
+    $response["status"] = false;
+    return $response;
+  } else {
+    $response["message"] = 'No se pudieron eliminar los permisos';
+    return $response;
   }
-?>
+}

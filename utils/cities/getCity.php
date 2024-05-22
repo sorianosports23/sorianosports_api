@@ -17,8 +17,8 @@ function getCityPlace($nameSport)
 
   foreach ($result as $row) {
     $data = [
-      "name" => $row["nameSport"],
-      "type" => $row["typeSport"]
+      "name" => $row["namesport"],
+      "type" => $row["typesport"]
     ];
     array_push($sports, $data);
   }

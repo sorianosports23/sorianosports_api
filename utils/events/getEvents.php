@@ -14,7 +14,7 @@ function getEvents(int $pag)
 
   $result = $stmt->fetchAll();
 
-  $eventsCount = count($result) > 0 ? $result[0]['totalRows'] : 0;
+  $eventsCount = count($result) > 0 ? $result[0]['totalrows'] : 0;
 
   $totalPages = round($eventsCount / 10) + 1;
 

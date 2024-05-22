@@ -1,26 +1,25 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getPlace($city) {
-    global $db;
+function getPlace($city)
+{
+  global $db;
 
-    $sql = "SELECT * FROM place WHERE city = ?";
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("s", $city);
-    $result = $stmt->execute();
-    $res = $stmt->get_result();
+  $sql = "SELECT * FROM place WHERE city = :city";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("city", $city);
+  $stmt->execute();
+  $res = $stmt->fetchAll();
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $place = [];
+  $place = [];
 
-    while ($row = $res->fetch_assoc()) {
-      array_push($place, $row);
-    }
-    
-    $response["status"] = true;
-    $response["data"] = $place;
-    $db->close();
-    return $response;
+  foreach ($res as $row) {
+    array_push($place, $row);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $place;
+  return $response;
+}
