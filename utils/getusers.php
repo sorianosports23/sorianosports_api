@@ -12,7 +12,7 @@ function getUsers(int $pag)
   $stmt = $db->prepare($sql);
   $stmt->bindParam(":pageOffset", $pageSql);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $usersCount = count($result) > 0 ? $result[0]['totalrows'] : 0;
 

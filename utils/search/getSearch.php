@@ -1,33 +1,37 @@
 <?php
-  include_once "../database/connection.php";
-  // include_once "getKeywordsID.php";
+include_once "../database/connection.php";
+// include_once "getKeywordsID.php";
 
-  function getSearch() {
-    global $db;
+function getSearch()
+{
+  global $db;
 
-    $sql = "SELECT * FROM search";
-    $result = $db->query($sql);
+  $sql = "SELECT * FROM search";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $search = [];
+  $search = [];
 
-    while ($row = $result->fetch_assoc()) {
-      $id = $row["id"];
-      $res = $db->query("SELECT * FROM keywords WHERE id = $id");
+  foreach ($result as $row) {
+    $id = $row["id"];
+    $res_sql = "SELECT * FROM keywords WHERE id = $id";
+    $stmt_res = $db->prepare($res_sql);
+    $stmt_res->execute();
+    $res = $stmt_res->fetchAll();
 
-      $keywords = [];
+    $keywords = [];
 
-      while ($row_kw = $res->fetch_assoc()) {
-        array_push($keywords, $row_kw["name"]);
-      }
-      $row["keywords"] = $keywords;
-      array_push($search, $row);
+    foreach ($res as $row_kw) {
+      array_push($keywords, $row_kw["name"]);
     }
-    
-    $response["status"] = true;
-    $response["data"] = $search;
-    $db->close();
-    return $response;
+    $row["keywords"] = $keywords;
+    array_push($search, $row);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $search;
+  return $response;
+}

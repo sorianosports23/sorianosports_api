@@ -9,7 +9,7 @@ function askPermission($username)
   $stmt = $db->prepare($query);
   $stmt->bindParam(":user", $username);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $grant = false;
 

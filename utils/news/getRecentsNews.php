@@ -8,7 +8,7 @@ function getNews()
   $query = "SELECT id, name, description, author, date FROM news ORDER BY id DESC LIMIT 3";
   $stmt = $db->prepare($query);
   $stmt->execute();
-  $res = $stmt->fetchAll();
+  $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   if (count($res) > 0) {
     $news = [];

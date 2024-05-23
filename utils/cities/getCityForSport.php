@@ -11,7 +11,7 @@ function getCityForSport($nameSport)
   $stmt->bindParam('sport', $nameSport);
   $stmt->execute();
 
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $citySports = [];
 
 

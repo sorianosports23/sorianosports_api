@@ -9,7 +9,7 @@ function getPlace($city)
   $stmt = $db->prepare($sql);
   $stmt->bindParam("city", $city);
   $stmt->execute();
-  $res = $stmt->fetchAll();
+  $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $response = ["status" => false];
 

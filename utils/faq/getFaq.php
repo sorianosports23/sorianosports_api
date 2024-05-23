@@ -8,7 +8,7 @@ function getFaq()
   $sql = "SELECT * FROM faq";
   $stmt = $db->prepare($sql);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $response = ["status" => false];
 

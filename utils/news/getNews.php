@@ -7,11 +7,11 @@ function getNews(int $pag)
 
   $pageSql = $pag * 10;
 
-  $sql = "SELECT id, name, description, author, date, (SELECT count(id) FROM news) as totalRows FROM news LIMIT 10 OFFSET :pageOffset";
+  $sql = "SELECT id, name, description, author, date, (SELECT count(id) FROM news) as totalRows FROM news ORDER BY id DESC LIMIT 10 OFFSET :pageOffset";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("pageOffset", $pagSql);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $newsCount = count($result) > 0 ? $result[0]['totalrows'] : 0;
 

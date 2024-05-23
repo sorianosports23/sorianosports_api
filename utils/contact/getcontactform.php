@@ -1,51 +1,50 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getContact(int $pag) {
-    global $db;
+function getContact(int $pag)
+{
+  global $db;
 
-    $sql = "SELECT * FROM contact ORDER BY id desc";
-    $result = $db->query($sql);
-    
-    $limit = 10;
+  $pageSql = $pag * 10;
 
-    $contactsCount = $result->num_rows;
+  $sql = "SELECT *, (SELECT count(id) FROM contact) as totalrows FROM contact ORDER BY id DESC LIMIT 10 OFFSET :pageOffset ";
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("pageOffset", $pageSql);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $totalPages = round($contactsCount / 10) + 1;
-    
-    $index = $pag*10;
-    
-    $maxIndex = $index + 10;
-    
-    if ($maxIndex > $contactsCount) {
-      $maxIndex = $contactsCount;
-    }
- 
-    $response = [
-      "status" => true,
-      "data" => [],
-      "pagination" => [
-        "totalPages" => $totalPages,
-        "currentPage" => $pag + 1
-      ]
-    ];
+  $contactsCount = count($result) > 0 ? $result[0]["totalrows"] : 0;
 
-    if ($index > $contactsCount) {
-      echo json_encode($response);
-      die();
-    }
+  $totalPages = round($contactsCount / 10) + 1;
 
-    $contact = [];
+  $index = $pag * 10;
 
-    for ($i = $index; $i < $maxIndex; $i++) {
-      $resUser = $result->data_seek($i);
-      $row = $result->fetch_assoc();
-     
-      array_push($contact, $row);
-    }
-    
-    $response["data"] = $contact;
-    $db->close();
-    return $response;
+  $maxIndex = $index + 10;
+
+  if ($maxIndex > $contactsCount) {
+    $maxIndex = $contactsCount;
   }
-?>
+
+  $response = [
+    "status" => true,
+    "data" => [],
+    "pagination" => [
+      "totalPages" => $totalPages,
+      "currentPage" => $pag + 1
+    ]
+  ];
+
+  if ($index > $contactsCount) {
+    echo json_encode($response);
+    die();
+  }
+
+  $contact = [];
+
+  foreach ($result as $row) {
+    array_push($contact, $row);
+  }
+
+  $response["data"] = $contact;
+  return $response;
+}

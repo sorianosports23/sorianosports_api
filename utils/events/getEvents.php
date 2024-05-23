@@ -7,12 +7,12 @@ function getEvents(int $pag)
 
   $pageSql = $pag * 10;
 
-  $sql = "SELECT id, name, city, place, time, sport, date_ev, description, check_great, (SELECT count(id) FROM event) as totalRows FROM event LIMIT 10 OFFSET :pageOffset";
+  $sql = "SELECT id, name, city, place, time, sport, date_ev, description, check_great, (SELECT count(id) FROM event) as totalRows FROM event ORDER BY id DESC LIMIT 10 OFFSET :pageOffset";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("pageOffset", $pageSql);
   $stmt->execute();
 
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $eventsCount = count($result) > 0 ? $result[0]['totalrows'] : 0;
 

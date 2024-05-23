@@ -9,7 +9,7 @@ function getPermissionsFromUser($username)
   $stmt = $db->prepare($sql);
   $stmt->bindParam(":user", $username);
   $stmt->execute();
-  $result = $stmt->fetchAll();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $perms = [];
 

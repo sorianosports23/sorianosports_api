@@ -1,23 +1,24 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getSocialMedia() {
-    global $db;
+function getSocialMedia()
+{
+  global $db;
 
-    $sql = "SELECT * FROM socialMedia";
-    $result = $db->query($sql);
+  $sql = "SELECT * FROM socialMedia";
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $response = ["status"=>false];
+  $response = ["status" => false];
 
-    $place = [];
+  $place = [];
 
-    while ($row = $result->fetch_assoc()) {
-      array_push($place, $row);
-    }
-    
-    $response["status"] = true;
-    $response["data"] = $place;
-    $db->close();
-    return $response;
+  foreach ($result as $row) {
+    array_push($place, $row);
   }
-?>
+
+  $response["status"] = true;
+  $response["data"] = $place;
+  return $response;
+}
