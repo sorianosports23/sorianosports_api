@@ -1,26 +1,26 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getImage($id) {
-    global $db;
+function getImage($id)
+{
+  global $db;
 
-    $query = "SELECT image, imgType FROM directive WHERE id = $id";
-    $res = $db->query($query);
+  $query = "SELECT image, imgType FROM directive WHERE id = $id";
+  $stmt = $db->prepare($query);
+  $stmt->execute();
+  $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($res->num_rows > 0) {
-      $imageInfo = [];
+  if ($res) {
+    $imageInfo = [];
 
-      $imageDB = $res->fetch_assoc();
+    $imageInfo["img"] = $res["image"];
+    $imageInfo["imgType"] = $res["imgtype"];
 
-      $imageInfo["img"] = $imageDB["image"];
-      $imageInfo["imgType"] = $imageDB["imgType"];
-
-      return $imageInfo;
-    } else {
-      return [
-        "message" => "No se encontro la imagen",
-        "status" => false
-      ];
-    }
+    return $imageInfo;
+  } else {
+    return [
+      "message" => "No se encontro la imagen",
+      "status" => false
+    ];
   }
-?>
+}

@@ -1,33 +1,32 @@
 <?php
- 
-  include_once "../database/connection.php";
-  include_once "../utils/errorcodes.php";
 
-  function addDirective($image, $name, $rank) {
-    global $db;
+include_once "../database/connection.php";
+include_once "../utils/errorcodes.php";
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+function addDirective($image, $name, $rank)
+{
+  global $db;
 
-    $stmt = $db->prepare("INSERT INTO directive (image, name, rank, imgType) VALUES (?,?,?,?)");
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $serializedImage = serialize(file_get_contents($image["tmp_name"]));
+  $stmt = $db->prepare("INSERT INTO directive (image, name, rank, imgType) VALUES (:img,:name,:rank,:imgType)");
 
-    $stmt->bind_param("ssss", $serializedImage, $name, $rank, $image["type"]);
+  $serializedImage = file_get_contents($image["tmp_name"]);
 
-    if ($stmt->execute()) {
-      $response["message"] = "Añadido Correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      $errMessage = getMessageError($db->errno);
-      $response["message"] = $errMessage;
-      $db->close();
-      return $response;
-    }
+  $stmt->bindParam('img', $serializedImage, PDO::PARAM_LOB);
+  $stmt->bindParam('name', $name);
+  $stmt->bindParam('rank', $rank);
+  $stmt->bindParam('imgType', $image['type']);
+
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Añadido correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo añadir";
+    return $response;
   }
-
-?>
+}
