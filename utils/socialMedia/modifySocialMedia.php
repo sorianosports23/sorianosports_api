@@ -1,29 +1,26 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function modifySocialMedia($socialMedia, $newLink) {
-    global $db;    
+function modifySocialMedia($socialMedia, $newLink)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("UPDATE socialMedia SET link = ? WHERE name = ?");
-    $stmt->bind_param('ss', $newLink, $socialMedia);
-    //stmt = "UPDATE city SET $city = ? WHERE id = ?;
-    
+  $stmt = $db->prepare("UPDATE socialMedia SET link = :link WHERE name = :name");
+  $stmt->bindParam("link", $newLink);
+  $stmt->bindParam("name", $socialMedia);
 
-    if ($stmt->execute()) {
-      $response["message"] = "Lugar editado";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Red social editada";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo editar la red social";
+    return $response;
   }
-?>
+}

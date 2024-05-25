@@ -1,30 +1,29 @@
 <?php
- 
-  include_once "../database/connection.php";
-  include_once "../utils/errorcodes.php";
 
-  function addFaq($name, $responseFaq){
-    global $db;
+include_once "../database/connection.php";
+include_once "../utils/errorcodes.php";
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+function addFaq($name, $responseFaq)
+{
+  global $db;
 
- 
-    $stmt = $db->prepare("INSERT INTO faq(name, response) VALUES(?,?)");
-    $stmt->bind_param('ss', $name, $responseFaq);
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
 
-    if ($stmt->execute()) {
-      $response["message"] = "Faq añadidas correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
-    }
+  $stmt = $db->prepare("INSERT INTO faq(name, response) VALUES(:name,:res)");
+  $stmt->bindParam("name", $name);
+  $stmt->bindParam("res", $responseFaq);
+
+
+  if ($stmt->execute() > 0) {
+    $response["message"] = "FAQ añadida correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo añadir";
+    return $response;
+  }
+}

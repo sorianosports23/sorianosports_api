@@ -1,29 +1,26 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function modifySearch($searchID, $search, $newSearch) {
-    global $db;    
+function modifySearch($searchID, $search, $newSearch)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => false
-    ];
+  $response = [
+    "message" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("UPDATE search SET $search = ? WHERE id = ?");
-    $stmt->bind_param('si', $newSearch, $searchID);
-    //stmt = "UPDATE city SET $city = ? WHERE id = ?;
-    
+  $stmt = $db->prepare("UPDATE search SET $search = :search WHERE id = :id");
+  $stmt->bindParam('search', $newSearch);
+  $stmt->bindParam('id', $searchID);
 
-    if ($stmt->execute()) {
-      $response["message"] = "Busqueda editada";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Busqueda editada";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo editar la busqueda";
+    return $response;
   }
-?>
+}

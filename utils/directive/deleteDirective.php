@@ -1,29 +1,24 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function deleteDirective($id) {
-    global $db;
+function deleteDirective($id)
+{
+  global $db;
 
-    $response = [
-      "menssage" => "",
-      "status" => false
-    ];
+  $response = [
+    "menssage" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("DELETE FROM directive WHERE id = ?");
-    $stmt->bind_param('i', $id );
+  $stmt = $db->prepare("DELETE FROM directive WHERE id = :id");
+  $stmt->bindParam('id', $id);
 
-    $res = $stmt->execute();
-
-    if ($stmt->execute()) {
-      $response["message"] = "Eliminado Correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Eliminado correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo eliminar";
+    return $response;
   }
-?>
+}
