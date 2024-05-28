@@ -1,21 +1,23 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function askPermission($username){
-    global $db;
-    
-    $query = "SELECT * FROM permission WHERE username = '$username'";
-    $result = $db->query($query);
+function askPermission($username)
+{
+  global $db;
 
-    $grant = false;
+  $query = "SELECT * FROM permissions WHERE username = :user";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam("user", $username);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    while($row = $result->fetch_assoc()){
-      if ($row["permission"] == "editor" || $row["permission"] == "admin"){
-        $grant = true;
-      }
+  $grant = false;
+
+  foreach ($result as $row) {
+    if ($row["permission"] == "editor" || $row["permission"] == "admin") {
+      $grant = true;
     }
+  }
 
-    return $grant;
+  return $grant;
 }
-
-?>

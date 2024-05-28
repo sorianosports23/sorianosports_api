@@ -1,29 +1,24 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function deleteEvents($id) {
-    global $db;
+function deleteEvents($id)
+{
+  global $db;
 
-    $response = [
-      "menssage" => "",
-      "status" => false
-    ];
+  $response = [
+    "menssage" => "",
+    "status" => false
+  ];
 
-    $stmt = $db->prepare("DELETE FROM event WHERE id = ?");
-    $stmt->bind_param('i', $id );
+  $stmt = $db->prepare("DELETE FROM event WHERE id = :id");
+  $stmt->bindParam('id', $id);
 
-    $res = $stmt->execute();
-
-    if ($stmt->execute()) {
-      $response["message"] = "Evento eliminado Correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Evento eliminado correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo editar el evento";
+    return $response;
   }
-?>
+}

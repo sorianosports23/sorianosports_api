@@ -1,7 +1,8 @@
 <?php
 include_once "../database/connection.php";
 
-function getMessageForUser($id) {
+function getMessageForUser($id)
+{
     global $db;
 
     $resultData = [
@@ -9,18 +10,17 @@ function getMessageForUser($id) {
         "data" => null
     ];
 
-    $sql = "SELECT message FROM messageForUser WHERE id = $id";
-    $result = $db->query($sql);
+    $sql = "SELECT message FROM messageForUser WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("id", $id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result->num_rows > 0) {
-        $idMessage = $result->fetch_assoc();
-        $resultData["data"] = $idMessage["message"];
+    if ($result) {
+        $resultData["data"] = $result['message'];
         $resultData["status"] = true;
     } else {
-        $resultData["message"] = "No se encontró ningún mensaje para el usuario con ID: $id";
+        $resultData["message"] = "No se recibio ningun mensaje";
     }
-
-    $db->close();
-
     return $resultData;
 }

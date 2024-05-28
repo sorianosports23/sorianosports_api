@@ -1,31 +1,27 @@
 <?php
 
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function messageForUser($id, $message){
-    global $db;
+function messageForUser($id, $message)
+{
+  global $db;
 
-    $response = [
-      "message" => "",
-      "status" => true
-    ];
+  $response = [
+    "message" => "",
+    "status" => true
+  ];
 
-    $stmt = $db->prepare("INSERT INTO messageForUser(id, message) VALUES(?,?)");
-    $stmt->bind_param('is', $id, $message);
-  
-    if ($stmt->execute()) {
-      $response["message"] = "Mensaje enviado correctamente";
-      $response["status"] = true;
-      $db->close();
-      return $response;
-    } else {
-      // $errMessage = getMessageError($db->errno);
-      $response["message"] = $stmt->error;
-      $db->close();
-      return $response;
-    }
+  $stmt = $db->prepare("INSERT INTO messageForUser(id, message) VALUES(:id,:msg)");
+  $stmt->bindParam('id', $id);
+  $stmt->bindParam('msg', $message);
 
+  if ($stmt->execute() > 0) {
+    $response["message"] = "Mensaje enviado correctamente";
+    $response["status"] = true;
+    return $response;
+  } else {
+    $response["message"] = "No se pudo enviar el mensaje";
+    return $response;
   }
 
-  
-?>
+}

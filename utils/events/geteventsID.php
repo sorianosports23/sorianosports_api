@@ -1,10 +1,14 @@
 <?php
- include_once "../database/connection.php";
+include_once "../database/connection.php";
 
- function getEventID($id){
+function getEventID($id)
+{
   global $db;
 
-  $query = "SELECT id, name, city, place, time, sport, rules, inscriptionInfo, extraInfo, description, date_ev, urlUbi, check_Great FROM event WHERE id = $id";
+  $query = "SELECT id, name, city, place, time, sport, rules, inscriptioninfo, extrainfo, description, date_ev, urlubi, check_great FROM event WHERE id = :id";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam("id", $id);
+  $stmt->execute();
 
   $resultData = [
     "status" => false,
@@ -15,19 +19,13 @@
 
   $eventsID = [];
 
-  $result = $db->query($query);
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if($result->num_rows==0){
-     return $resultData;
-  }
-  else{
+  if (!$result) {
+    return $resultData;
+  } else {
     $resultData["status"] = true;
-    $resultData["data"] = $eventsID  ;
   }
-  $resultFetch = $result->fetch_assoc();
-  $resultData["data"] = $resultFetch;
-  $db->close();
+  $resultData["data"] = $result;
   return $resultData;
-
- }
-?>
+}
