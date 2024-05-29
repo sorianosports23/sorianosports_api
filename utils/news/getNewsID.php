@@ -1,10 +1,15 @@
 <?php
- include_once "../database/connection.php";
+include_once "../database/connection.php";
 
- function getNews($id){
+function getNews($id)
+{
   global $db;
 
-  $query = "SELECT name, description, note, author, date FROM news WHERE id = $id";
+  $query = "SELECT name, description, note, author, date FROM news WHERE id = :id";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam('id', $id);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
   $resultData = [
     "status" => false,
@@ -13,16 +18,11 @@
     ]
   ];
 
-  $result = $db->query($query);
-
-  if($result->num_rows==0){
-    $db->close();
-      return $resultData;
+  if (!$result) {
+    return $resultData;
   }
-  $resultFetch = $result->fetch_assoc();
-  $resultData["data"] = $resultFetch;
-  $resultData["data"]["image"] = "/news/getNewsImg.php?id=".$id;
+  $resultData["data"] = $result;
+  $resultData["data"]["image"] = "/news/getNewsImg.php?id=" . $id;
   return $resultData;
 
- }
-?>
+}
