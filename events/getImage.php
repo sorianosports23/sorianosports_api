@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
   $CONTENT_TYPE = "Content-Type: " . $image["imgType"];
 
+
   header($CONTENT_TYPE);
   $imageData = stream_get_contents($image["img"]);
   echo $imageData;
@@ -30,4 +31,3 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     "correct_method" => "GET"
   ]);
 }
-?>

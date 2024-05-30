@@ -1,14 +1,18 @@
 <?php
- include_once "../database/connection.php";
+include_once "../database/connection.php";
 
- function getInscription($id){
+function getInscription($id)
+{
   global $db;
 
-  $query = "SELECT id, username, name, lastname, birthday, ci, gender, medicalRecord, expiration, city, residence, phone, email, schoolYear, alternativePhone, sportTimeStart, sportTimeEnd, activity, activityPlace, anotherSports, oldPractisedSport, medicalAssistence, whatMedicalCare, medicalAssistencePhone, bloodGroup, diabetes, hypertension, fractures, allergy, asthma, otherDiseases, wearGlasses, whatTypeGlasses, state, startInscription, endInscription FROM inscriptionForm WHERE id = ?";
+  $query = "
+    SELECT id, username, name, lastname, birthday, ci, gender, medicalRecord, expiration, city, residence, phone, email, schoolYear, alternativePhone, sportTimeStart, sportTimeEnd, activity, activityPlace, anotherSports, oldPractisedSport, medicalAssistence, whatMedicalCare, medicalAssistencePhone, bloodGroup, diabetes, hypertension, fractures, allergy, asthma, otherDiseases, wearGlasses, whatTypeGlasses, state, startInscription, endInscription 
+    FROM inscriptionForm WHERE id = :id
+  ";
   $stmt = $db->prepare($query);
-  $stmt->bind_param("i", $id);
-  $res = $stmt->execute();
-  $result = $stmt->get_result();
+  $stmt->bindParam('id', $id);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
   $resultData = [
     "status" => false,
@@ -19,15 +23,11 @@
 
   // $result = $db->query($query);
 
-  if(!$result){
-    $db->close();
+  if (!$result) {
     return $resultData;
   }
 
-  $resultFetch = $result->fetch_assoc();
   $resultData["status"] = true;
-  $resultData["data"] = $resultFetch;
+  $resultData["data"] = $result;
   return $resultData;
-
- }
-?>
+}

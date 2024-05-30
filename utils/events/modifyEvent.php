@@ -10,7 +10,9 @@ function modifyEvents($eventsID, $events, $newEvent)
     "status" => false
   ];
 
-  $stmt = $db->prepare("UPDATE event SET $events = :newattr WHERE id = :id");
+  $attrtoedit = strtolower($events);
+
+  $stmt = $db->prepare("UPDATE event SET $attrtoedit = :newattr WHERE id = :id");
   $stmt->bindParam("id", $eventsID);
   ;
 
