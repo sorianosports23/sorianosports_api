@@ -11,7 +11,7 @@ function messageForUser($id, $message)
     "status" => true
   ];
 
-  $stmt = $db->prepare("INSERT INTO messageForUser(id, message) VALUES(:id,:msg)");
+  $stmt = $db->prepare("INSERT INTO messageforuser(id, message) VALUES(:id,:msg)");
   $stmt->bindParam('id', $id);
   $stmt->bindParam('msg', $message);
 

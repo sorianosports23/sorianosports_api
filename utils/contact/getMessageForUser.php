@@ -10,7 +10,15 @@ function getMessageForUser($id)
         "data" => null
     ];
 
-    $sql = "SELECT message FROM messageForUser WHERE id = :id";
+    $sql = "
+        SELECT message
+            FROM (
+                    SELECT message, ROW_NUMBER() OVER (PARTITION BY id ORDER BY id) AS rn
+                    FROM messageforuser
+                    WHERE id = :id
+            ) m
+        WHERE rn = (SELECT COUNT(*) FROM messageforuser WHERE id = :id);
+    ";
     $stmt = $db->prepare($sql);
     $stmt->bindParam("id", $id);
     $stmt->execute();

@@ -7,7 +7,25 @@ function getContact(int $pag)
 
   $pageSql = $pag * 10;
 
-  $sql = "SELECT *, (SELECT count(id) FROM contact) as totalrows FROM contact ORDER BY id DESC LIMIT 10 OFFSET :pageOffset ";
+  $sql = "
+      SELECT c.*,
+        (SELECT message
+          FROM (
+              SELECT message,
+                    ROW_NUMBER() OVER (PARTITION BY id ORDER BY id) AS rn
+              FROM messageforuser
+              WHERE id = c.id
+          ) m
+          WHERE rn = (SELECT COUNT(*)
+                      FROM messageforuser
+                      WHERE id = c.id)
+        ) AS latest_message,
+        (SELECT count(id) FROM contact) as totalrows
+      FROM contact c
+      ORDER BY c.id DESC
+      LIMIT 10
+      OFFSET :pageOffset;
+  ";
   $stmt = $db->prepare($sql);
   $stmt->bindParam("pageOffset", $pageSql);
   $stmt->execute();

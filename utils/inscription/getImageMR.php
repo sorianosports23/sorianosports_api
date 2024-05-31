@@ -1,39 +1,33 @@
 <?php
-  include_once "../database/connection.php";
+include_once "../database/connection.php";
 
-  function getImage($id) {
-    global $db;
+function getImage($id)
+{
+  global $db;
 
-    $query = "SELECT medicalRecordImg, medicalRecordImgType FROM inscriptionform WHERE id = ?";
-    $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $id);
-    $res = $stmt->execute();
+  $query = "SELECT medicalrecordimg, medicalrecordimgtype FROM inscriptionform WHERE id = :id";
+  $stmt = $db->prepare($query);
+  $stmt->bindParam('id', $id);
+  $stmt->execute();
+  $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $response = [
-      "status" => false
-    ];
+  $response = [
+    "status" => false
+  ];
 
-    if ($res) {
-      $response["status"] = true;
+  if ($res) {
+    $response["status"] = true;
 
-      $result = $stmt->get_result();
-      $image = $result->fetch_assoc();
-
-      if (is_null($image["medicalRecordImg"])) {
-        $response["status"] = false;
-        $db->close();
-        return $response;
-        die();
-      }
-
-      $response["image"] = $image["medicalRecordImg"];
-      $response["type"] = $image["medicalRecordImgType"];
-      
-      $db->close();
-      return $response;
-    } else {
-      $db->close();
+    if (is_null($res["medicalrecordimg"])) {
+      $response["status"] = false;
       return $response;
     }
+
+    $response["image"] = $res["medicalrecordimg"];
+    $response["type"] = $res["medicalrecordimgtype"];
+
+    return $response;
+  } else {
+    return $response;
   }
-?>
+}
